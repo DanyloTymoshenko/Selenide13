@@ -19,9 +19,9 @@ mvn clean test -Dcucumber.options="--tags @signup"
 10. Improve the registration tests by resolving TODOs there.
 11. Find all other TODOs and try to resolve them.
 12. Develop a plan and cover the rest of features with automated tests:
-    - User management;
-    - User search;
-    - Image management;
+    - User management; //done
+    - User search; // the search is odd
+    - Image management; 
     - Image search;
     - Category management;
     - Category search;

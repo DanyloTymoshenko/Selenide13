@@ -13,6 +13,9 @@ public class HomePage extends BasePage {
 
   //TODO: Add more.
 
+  @FindBy(xpath = "//*[@id=\"aUsers\"]")
+  private WebElement aUsers;
+
   @FindBy(id = "tbTerm")
   private WebElement tbTerm;
 
@@ -79,9 +82,11 @@ public class HomePage extends BasePage {
   private WebElement catBouvier;
 
   @FindBy(xpath = "//*[@id=\"tbRatingFrom\"]//div[2]/div[2]")
-  private WebElement btnRatingUp;
+  private WebElement btnRatingUp, btnRatingDown;
 
-  //Do Product Card in steps
+  public void clickAdminUsers() {
+    aUsers.click();
+  }
 
   String SearchImg = "";
 
@@ -109,9 +114,15 @@ public class HomePage extends BasePage {
 
   public void PressRatingButtonUp() {
     Actions actions = new Actions(driver);
-   // actions.moveToElement(tbRatingFrom, tbPriceFrom.getSize().getWidth() - 5, 5).click().perform();
+    //actions.moveToElement(tbRatingFrom, tbPriceFrom.getSize().getHeight() - 13, 13).click().perform();
 
-    actions.moveToElement(btnRatingUp).moveByOffset(6, 0).click();
+    actions.moveToElement(btnRatingUp).moveByOffset(7, 12).click();
+  }
+
+  public void PressRatingButtonDown() {
+    Actions actions = new Actions(driver);
+
+    actions.moveToElement(btnRatingDown).moveByOffset(7, 8).click();
   }
 
   String PriceFrom = "";
@@ -179,5 +190,41 @@ public class HomePage extends BasePage {
 
   public void catBouvier() {
     catBouvier.click();
+  }
+
+  /// ADMIN EXTENSION
+
+  @FindBy(id = "btnSave")
+  private WebElement btnSave;
+
+  public void clickSave() {
+    btnSave.click();
+  }
+
+  @FindBy(id = "tbPathToAvatarImage")
+  private WebElement tbPathToAvatarImage;
+
+  public void typeInAvatar(String value) {
+    tbPathToAvatarImage.clear();
+    typeIn(value, tbPathToAvatarImage);
+  }
+
+  private void typeIn(String value, WebElement targetElement) {
+    targetElement.clear();
+    targetElement.sendKeys(value);
+  }
+
+  @FindBy(id = "aAddUser")
+  private WebElement aAddUser;
+
+  public void clickAddUser() {
+    aAddUser.click();
+  }
+
+  @FindBy(id = "btnReset")
+  private WebElement btnReset;
+
+  public void clickReset() {
+    btnReset.click();
   }
 }

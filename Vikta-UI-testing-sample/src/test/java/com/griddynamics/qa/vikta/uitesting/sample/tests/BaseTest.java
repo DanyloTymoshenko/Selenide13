@@ -3,6 +3,7 @@ package com.griddynamics.qa.vikta.uitesting.sample.tests;
 import com.griddynamics.qa.vikta.uitesting.sample.auxiliary.DriverManager;
 import com.griddynamics.qa.vikta.uitesting.sample.config.DataProvider;
 import com.griddynamics.qa.vikta.uitesting.sample.config.TestDataAndProperties;
+import com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions.AdminSteps;
 import com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions.HomePageSteps;
 import com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions.LoginSteps;
 import com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions.RegistrationSteps;
@@ -20,8 +21,9 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Date;
-import jdk.internal.org.jline.terminal.TerminalBuilder;
 import org.apache.commons.io.FileUtils;
+//import jdk.internal.org.jline.terminal.TerminalBuilder;
+import org.jline.terminal.TerminalBuilder;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -44,6 +46,7 @@ public class BaseTest {
   LoginSteps loginSteps;
   RegistrationSteps registrationSteps;
   HomePageSteps homePageSteps;
+  AdminSteps adminSteps;
 
   public BaseTest() {
     driverManager = new DriverManager(DataProvider.get());
@@ -61,6 +64,7 @@ public class BaseTest {
     loginSteps = new LoginSteps(driverManager.get());
     registrationSteps = new RegistrationSteps(driverManager.get());
     homePageSteps = new HomePageSteps(driverManager.get());
+    adminSteps = new AdminSteps(driverManager.get());
   }
 
   // TODO: Do a screenshot at the end upon test failure. Hint: @AfterMethod + Allure.
