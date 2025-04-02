@@ -3,7 +3,7 @@ package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.codeborne.selenide.WebDriverRunner;
-//import com.griddynamics.qa.vikta.uitesting.sample.config.DataProvider;
+import com.github.javafaker.Faker; // Використовуємо JavaFaker для генерації випадкових даних
 import com.griddynamics.qa.vikta.uitesting.sample.config.TestDataAndProperties;
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.BasePage;
 import java.util.Objects;
@@ -12,15 +12,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.DataProvider;
 
 /**
- * Base class to contain common auxiliary methods for step definitions.
+ Base class to contain common auxiliary methods for step definitions.
  */
 abstract class BaseSteps {
 
   private WebDriver driver;
   private WebDriverWait wait;
+  private static final Faker faker = new Faker(); // Додаємо Faker для генерації даних
 
   BaseSteps(WebDriver driver) {
     this.driver = driver;
@@ -34,7 +34,6 @@ abstract class BaseSteps {
     if (Objects.isNull(this.wait)) {
       this.wait = new WebDriverWait(getDriver(), getData().waitTimeout());
     }
-
     return wait;
   }
 
@@ -42,42 +41,46 @@ abstract class BaseSteps {
     return new TestDataAndProperties() {
       @Override
       public String browser() {
-        return "";
+        return "chrome"; // Додаємо значення за замовчуванням
       }
 
       @Override
       public int pageLoadTimeout() {
-        return 1;
+        return 10; // Змінюємо з 1 на щось більш адекватне
       }
 
       @Override
       public int waitTimeout() {
-        return 3;
+        return 5; // Змінюємо з 3 на щось оптимальне
       }
 
       @Override
       public String baseHost() {
-        return "";
+        return "localhost";
       }
 
       @Override
       public String basePort() {
-        return "";
+        return "5054";
       }
 
       @Override
       public String baseUrl() {
-        return "";
+        return "http://localhost:5054";
       }
 
       @Override
       public String loginPageUrl() {
-        return "http://localhost:5054/login";
+        return baseUrl() + "/login";
       }
 
       @Override
       public String registrationPageUrl() {
-        return "http://localhost:5054/registration";
+        return baseUrl() + "/registration";
+      }
+
+      public String usersPageUrl() {
+        return baseUrl() + "/admin/users";
       }
 
       @Override
@@ -109,31 +112,31 @@ abstract class BaseSteps {
   void verifyCurrentPageIsHomePageForTheUser(String username) {
     BasePage currentPage = getPage(BasePage.class);
     getWait().until(ExpectedConditions.visibilityOf(currentPage.getLoggedInName()));
-
     assertCurrentPageUrl(getData().baseUrl(), "Home page was expected to be the current one.");
-
     assertThat(currentPage.getCurrentUserName())
       .as("Unexpected current user's name displayed. Expected: %s", username)
       .contains(username);
-    //TODO: Assert displayed role as well.
+
+    assertThat(currentPage.getCurrentUserRole()).as("Unexpected user role displayed.").isNotNull();
   }
 
   void assertCurrentPageUrl(String expectedUrl, String messageOnFail) {
     assertThat(getDriver().getCurrentUrl()).as(messageOnFail).contains(expectedUrl);
   }
 
-  //TODO: Make static and move to some Utils.
-  //TODO: Use something like JavaFaker.
-  private String generateRandomString(int maxLength) {
-    String candidate = UUID.randomUUID().toString().replaceAll("\\d", "A");
-    if (candidate.length() >= maxLength) {
-      return candidate.substring(0, maxLength);
-    } else {
-      return candidate;
-    }
+  static String generateRandomString(int maxLength) {
+    return UUID
+      .randomUUID()
+      .toString()
+      .replaceAll("\\d", "A")
+      .substring(0, Math.min(maxLength, 36));
   }
 
-  String generateRandomString() {
-    return generateRandomString(16); //Remember!!! Magic numbers are bad, bad, bad practice!
+  static String generateRandomUsername() {
+    return faker.name().username().replaceAll("\\W", "");
+  }
+
+  static String generateRandomEmail() {
+    return faker.internet().emailAddress();
   }
 }

@@ -116,4 +116,8 @@ public class BasePage {
   public void clickLogoutBottom() {
     aLogoutBottom.click();
   }
+
+  public String getCurrentUserRole() {
+    return userRoleBottom.getText().trim();
+  }
 }

@@ -27,6 +27,7 @@ public class RegistrationSteps extends BaseSteps {
     FIRSTNAME,
     PATRONIM,
     PASSWORD,
+    AVATARURL,
   }
 
   public enum SearchFieldName { //for typeInto method
@@ -78,23 +79,23 @@ public class RegistrationSteps extends BaseSteps {
     String valueToReturn;
     switch (fieldName) {
       case LOGINNAME:
-        valueToReturn = generateRandomString();
+        valueToReturn = generateRandomString(16);
         page().typeInLoginname(valueToReturn);
         break;
       case SURNAME:
-        valueToReturn = generateRandomString();
+        valueToReturn = generateRandomString(10);
         page().typeInSurname(valueToReturn);
         break;
       case FIRSTNAME:
-        valueToReturn = generateRandomString();
+        valueToReturn = generateRandomString(10);
         page().typeInFirstname(valueToReturn);
         break;
       case PATRONIM:
-        valueToReturn = generateRandomString();
+        valueToReturn = generateRandomString(12);
         page().typeInPatronim(valueToReturn);
         break;
       case PASSWORD:
-        valueToReturn = generateRandomString();
+        valueToReturn = generateRandomString(8);
         page().typeInPassword(valueToReturn);
         break;
       //TODO: Add the rest... .

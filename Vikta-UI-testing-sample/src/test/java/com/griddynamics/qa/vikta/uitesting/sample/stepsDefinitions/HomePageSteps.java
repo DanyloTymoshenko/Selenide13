@@ -12,9 +12,6 @@ public class HomePageSteps extends BaseSteps {
     super(driver);
   }
 
-  //TODO: Add more steps.
-
-  //TODO: Think about generics etc instead of this.
   private HomePage page() {
     return getPage(HomePage.class);
   }

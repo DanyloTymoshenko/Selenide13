@@ -43,26 +43,32 @@ public class RegistrationPage extends BasePage {
   //TODO: Add [Register User] button support.
 
   public void typeInLoginname(String value) {
+    tbLoginName.clear();
     typeIn(value, tbLoginName);
   }
 
   public void typeInSurname(String value) {
+    tbSurname.clear();
     typeIn(value, tbSurname);
   }
 
   public void typeInEmail(String value) {
+    tbEmail.clear();
     typeIn(value, tbEmail);
   }
 
   public void typeInFirstname(String value) {
+    tbFirstName.clear();
     typeIn(value, tbFirstName);
   }
 
   public void typeInPatronim(String value) {
+    tbMiddleName.clear();
     typeIn(value, tbMiddleName);
   }
 
   public void typeInPassword(String value) {
+    tbPassword.clear();
     typeIn(value, tbPassword);
   }
 

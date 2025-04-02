@@ -1,34 +1,95 @@
 package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 
-import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.Selenide.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.shouldHaveThrown;
 
-import com.griddynamics.qa.vikta.uitesting.sample.auxiliary.DriverManager;
-import com.griddynamics.qa.vikta.uitesting.sample.config.DataProvider;
-import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.LoginPage;
+import com.codeborne.selenide.CollectionCondition;
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
+import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.HomePage;
 import io.qameta.allure.Step;
+import java.time.Duration;
+import java.util.List;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AdminSteps extends BaseSteps {
 
-  AdminSteps(WebDriver driver) {
+  public AdminSteps(WebDriver driver) {
     super(driver);
   }
 
-  @Step
-  public void loginAsAdmin() {
-    page().login(getData().adminName(), getData().adminPassword());
-  }
-
-  private LoginPage page() {
-    return getPage(LoginPage.class);
+  private HomePage page() {
+    return getPage(HomePage.class);
   }
 
   @Step
-  public void verifyCurrentPageIsHomePageForTheRegularUser() {
-    verifyCurrentPageIsHomePageForTheUser(getData().userName());
+  public void getUserPage() {
+    page().clickAdminUsers();
+  }
+
+  String username = "dbAdeAfA-AAbA-AA";
+  String dynamicId = "trUser_" + username;
+
+  @Step
+  public void getUser() {
+    $(dynamicId).hover();
+  }
+
+  // #trUser_qq > td:nth-child(3)   //*[@id=\""+username+"\"]/td[2
+  @Step
+  public String getTableRowContentById() {
+    /*if(!$("#"+dynamicId).exists()){throw new NoSuchElementException("ELEMENT "+ dynamicId +" is not FOUND");
+    }*/
+    return $(By.id(dynamicId)).should(Condition.exist).shouldBe(Condition.visible).getText();
+  }
+
+  @Step
+  public void writeTableRowContentById() {
+    List<String> cells = $$("#" + dynamicId + " td")
+      .shouldBe(CollectionCondition.sizeGreaterThan(0))
+      .texts();
+    System.out.println("Row with ID [" + dynamicId + "] contains: ");
+    for (int i = 0; i < cells.size(); i++) {
+      System.out.println("  Row " + (i + 1) + ": " + cells.get(i));
+    }
+  }
+
+  @Step
+  public void deleteRowById() {
+    SelenideElement deleteButton = $("#" + dynamicId + " > td:nth-child(7) > a"); //#trUser_qq > td:nth-child(7) > a
+
+    deleteButton.shouldBe(Condition.visible, Duration.ofSeconds(5)).click();
+    System.out.println("ROw" + dynamicId + " has been deleted");
+  }
+
+  @Step
+  public void typeIntoAvatar() {
+    String returnValue =
+      "https://www.google.com/imgres?q=owl%20photo&imgurl=https%3A%2F%2Fwww.akronzoo.org%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Funcropped_xl%2Fpublic%2F2022-05%2FSnowy-owl-Frost.png%3Fitok%3Dbw8666Ly&imgrefurl=https%3A%2F%2Fwww.akronzoo.org%2Fbirds%2Fsnowy-owl&docid=HJnJFSxsErnqWM&tbnid=eAY5ZvktTqj35M&vet=12ahUKEwiw_5CizriMAxUkxAIHHQdkEocQM3oFCIUBEAA..i&w=1600&h=1600&hcb=2&ved=2ahUKEwiw_5CizriMAxUkxAIHHQdkEocQM3oFCIUBEAA";
+    page().typeInAvatar(returnValue);
+  }
+
+  String testID = "trUser_bcAAbAfA-dbaA-AA >";
+
+  @Step
+  public void clickUserProfileLink() {
+    $(By.xpath("//*[@id=\"trUser_bcAAbAfA-dbaA-AA\"]/td[2]/a")).click(); //#trUser_bcAAbAfA-dbaA-AA > td:nth-child(2) > a
+  }
+
+  @Step
+  public void clickSave() {
+    page().clickSave();
+  }
+
+  @Step
+  public void getAddUser() {
+    page().clickAddUser();
+  }
+
+  @Step
+  public void clickReset() {
+    page().clickReset();
   }
 }
