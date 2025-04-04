@@ -14,28 +14,29 @@ import static com.codeborne.selenide.Selenide.$;
  */
 public class HomePage extends BasePage {
 
+
     //TODO: Add more.
 
     @FindBy(xpath = "//*[@id=\"aUsers\"]")
     private WebElement aUsers;
 
 
-    @FindBy(id = "tbTerm")
+    @FindBy(xpath = "//*[@id=\"tbTerm\"]")
     private WebElement tbTerm;
 
     @FindBy(id = "tSelectedCategoryTitle")
     private WebElement tSelectedCategoryTitle;
 
-    @FindBy(id = "tbRatingFrom")
+    @FindBy(xpath = "//*[@id=\"tbRatingFrom\"]")
     private WebElement tbRatingFrom;
 
-    @FindBy(id = "tbRatingTo")
+    @FindBy(xpath = "//*[@id=\"tbRatingTo\"]")
     private WebElement tbRatingTo;
 
-    @FindBy(id = "tbRPriceFrom")
+    @FindBy(xpath = "//*[@id=\"tbPriceFrom\"]")
     private WebElement tbPriceFrom;
 
-    @FindBy(id = "tbPriceTo")
+    @FindBy(xpath = "//*[@id=\"tbPriceTo\"]")
     private WebElement tbPriceTo;
 
     @FindBy(id = "btnSearch")
@@ -92,20 +93,17 @@ public class HomePage extends BasePage {
         aUsers.click();
     }
 
-    String SearchImg = "";
 
-    public void InputSearchImages() {
+    public void InputSearchImages(String SearchImg) {
         tbTerm.sendKeys(SearchImg);
     }
 
-    String RatingFrom = "";
-    String RatingTo = "";
 
-    public void InputRatingFrom() {
+    public void InputRatingFrom(String RatingFrom) {
         tbRatingFrom.sendKeys(RatingFrom);
     }
 
-    public void InputRatingTo() {
+    public void InputRatingTo(String RatingTo) {
         tbRatingTo.sendKeys(RatingTo);
     }
 
@@ -129,14 +127,11 @@ public class HomePage extends BasePage {
         actions.moveToElement(btnRatingDown).moveByOffset(7, 8).click();
     }
 
-    String PriceFrom = "";
-    String PriceTo = "";
-
-    public void InputPriceFrom() {
+    public void InputPriceFrom(String PriceFrom) {
         tbPriceFrom.sendKeys(PriceFrom);
     }
 
-    public void InputPriceTo() {
+    public void InputPriceTo(String PriceTo) {
         tbPriceTo.sendKeys(PriceTo);
     }
 
@@ -298,7 +293,7 @@ public class HomePage extends BasePage {
     @FindBy(id = "rating")
     private WebElement imageRatingSlider;
 
-    public void ChangeRating(int value){
+    public void ChangeRating(int value) {
         $("#rating").setValue(String.valueOf(value));
     }
 
@@ -306,7 +301,7 @@ public class HomePage extends BasePage {
     @FindBy(id = "slctCategories")
     private WebElement imageCategoriesListBox;
 
-    public void SetCategory(String categoryName){
+    public void SetCategory(String categoryName) {
         Select select = new Select(imageCategoriesListBox);
 
         select.selectByVisibleText(categoryName);
@@ -315,8 +310,14 @@ public class HomePage extends BasePage {
     @FindBy(id = "aAddImage")
     private WebElement AddImagePage;
 
-    public void clickAddImage(){
+    public void clickAddImage() {
         AddImagePage.click();
     }
 
+    @FindBy(xpath = "//*[@id=\"btnResetSearchCriteria\"]")
+    private WebElement ResetButton;
+
+    public void PressReset(){
+        ResetButton.click();
+    }
 }
