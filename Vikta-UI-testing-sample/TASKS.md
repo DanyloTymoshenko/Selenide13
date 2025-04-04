@@ -21,12 +21,12 @@ mvn clean test -Dcucumber.options="--tags @signup"
 12. Develop a plan and cover the rest of features with automated tests:
     - User management; //done
     - User search; // the search is odd
-    - Image management; 
+    - Image management; // done
     - Image search;
     - Category management;
     - Category search;
     - Purchasing;
-    - Searching;
+    - Searching; //same as image search?
     - Payment methods;
     - Addresses.
 Note, some features could include both Admin and RegularUser parts.
