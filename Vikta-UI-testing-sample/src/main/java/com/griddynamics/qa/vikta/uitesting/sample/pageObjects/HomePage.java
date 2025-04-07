@@ -227,11 +227,10 @@ public class HomePage extends BasePage {
 
   /// IMAGES
   @FindBy(css = "#aImages")
-  private  WebElement aImage;
+  private WebElement aImage;
 
   public void clickImages() {
     $(aImage).shouldBe(Condition.visible).click();
-
   }
 
   @FindBy(id = "tbUEL")
@@ -263,7 +262,7 @@ public class HomePage extends BasePage {
 
   public void typeInImageAuthor(String value) {
     $(imageAuthor).setValue(value);
-   // typeIn(value, imageAuthor);
+    // typeIn(value, imageAuthor);
   }
 
   @FindBy(id = "tbPrice")

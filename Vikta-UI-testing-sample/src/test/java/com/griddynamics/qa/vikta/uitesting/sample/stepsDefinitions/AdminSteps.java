@@ -31,7 +31,6 @@ public class AdminSteps extends BaseSteps {
 
   @Step
   public void getImagePage() {
-
     page().clickImages();
   }
 
@@ -54,8 +53,8 @@ public class AdminSteps extends BaseSteps {
   @Step
   public void writeTableRowContentById() {
     List<String> cells = $$("#" + dynamicId + " td")
-            .shouldBe(CollectionCondition.sizeGreaterThan(0))
-            .texts();
+      .shouldBe(CollectionCondition.sizeGreaterThan(0))
+      .texts();
     System.out.println("Row with ID [" + dynamicId + "] contains: ");
     for (int i = 0; i < cells.size(); i++) {
       System.out.println("  Row " + (i + 1) + ": " + cells.get(i));
@@ -111,7 +110,7 @@ public class AdminSteps extends BaseSteps {
 
   @Step
   public void writeImageTableRowContentById() {
-    List<String> cells = $$( imageId + " td")
+    List<String> cells = $$(imageId + " td")
       .shouldBe(CollectionCondition.sizeGreaterThan(0))
       .texts();
     System.out.println("Image Row with ID [" + imageId + "] contains: ");
@@ -122,7 +121,7 @@ public class AdminSteps extends BaseSteps {
 
   @Step
   public void deleteImageRowById() {
-    SelenideElement deleteButton = $( imageId + " > td:nth-child(10)");
+    SelenideElement deleteButton = $(imageId + " > td:nth-child(10)");
 
     deleteButton.shouldBe(Condition.visible, Duration.ofSeconds(5)).click();
     System.out.println("ROw" + imageId + " has been deleted");
@@ -142,8 +141,9 @@ public class AdminSteps extends BaseSteps {
     page().ChangeRating(3);
     page().SetCategory("Pop");
   }
+
   @Step
-  public void ImageAddTitle(){
+  public void ImageAddTitle() {
     page().typeInImageTitle("TEST_TITLE");
   }
 

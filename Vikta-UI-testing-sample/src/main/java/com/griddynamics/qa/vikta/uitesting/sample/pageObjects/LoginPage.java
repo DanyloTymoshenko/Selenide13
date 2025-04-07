@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
  */
 public class LoginPage {
 
-  @FindBy(css = "#tfLoginname")
+  @FindBy(id = "tfLoginname")
   private WebElement txtLoginname;
 
   @FindBy(id = "tfPassword")
@@ -27,15 +27,17 @@ public class LoginPage {
   @FindBy(id = "btnSubmitGoRegistration")
   private WebElement btnSubmitGoRegistration;
 
+  public void SubmitGoRegistration() {
+    btnSubmitGoRegistration.click();
+  }
+
   public HomePage login(String username, String password) {
     tryLogin(username, password);
     return new HomePage();
   }
 
   public void tryLogin(String username, String password) {
-    txtLoginname.clear();
     txtLoginname.sendKeys(username);
-
     txtPassword.clear();
     txtPassword.sendKeys(password);
 
