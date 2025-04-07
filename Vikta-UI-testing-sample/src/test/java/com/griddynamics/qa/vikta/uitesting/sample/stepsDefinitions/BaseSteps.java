@@ -41,17 +41,17 @@ abstract class BaseSteps {
     return new TestDataAndProperties() {
       @Override
       public String browser() {
-        return "chrome"; // Додаємо значення за замовчуванням
+        return "chrome";
       }
 
       @Override
       public int pageLoadTimeout() {
-        return 10; // Змінюємо з 1 на щось більш адекватне
+        return 10;
       }
 
       @Override
       public int waitTimeout() {
-        return 5; // Змінюємо з 3 на щось оптимальне
+        return 5;
       }
 
       @Override
@@ -102,6 +102,7 @@ abstract class BaseSteps {
       public String userPassword() {
         return "123";
       }
+
       @Override
       public String imagesPageUrl() {
         return "http://localhost:5054/admin/imageitems";

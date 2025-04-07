@@ -11,11 +11,8 @@ import org.testng.annotations.Test;
 
 public class AdminTest extends BaseTest {
 
-
-  @Test()
+  @Test
   public void testAdminGetUserTable() {
-
-
     loginSteps.openLoginPage();
 
     // When user logins as ADMIN user
@@ -32,7 +29,7 @@ public class AdminTest extends BaseTest {
     //adminSteps.deleteRowById();
   }
 
-  @Test()
+  @Test
   public void testAdminUserEdit() {
     loginSteps.openLoginPage();
     loginSteps.loginAsAdmin();
@@ -50,7 +47,7 @@ public class AdminTest extends BaseTest {
     adminSteps.clickSave();
   }
 
-  @Test()
+  @Test
   public void testAdminUserAdd() {
     loginSteps.openLoginPage();
     loginSteps.loginAsAdmin();
@@ -77,7 +74,7 @@ public class AdminTest extends BaseTest {
     adminSteps.clickSave();
   }
 
-  @Test()
+  @Test
   public void testAdminGetImageTable() {
     loginSteps.openLoginPage();
 
