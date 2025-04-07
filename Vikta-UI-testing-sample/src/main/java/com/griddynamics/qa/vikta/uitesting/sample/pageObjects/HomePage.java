@@ -2,6 +2,8 @@ package com.griddynamics.qa.vikta.uitesting.sample.pageObjects;
 
 import static com.codeborne.selenide.Selenide.$;
 
+import com.codeborne.selenide.Condition;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -16,7 +18,7 @@ public class HomePage extends BasePage {
 
   //TODO: Add more.
 
-  @FindBy(xpath = "//*[@id=\"aUsers\"]")
+  @FindBy(css = "#aUsers")
   private WebElement aUsers;
 
   @FindBy(xpath = "//*[@id=\"tbTerm\"]")
@@ -88,7 +90,7 @@ public class HomePage extends BasePage {
   private WebElement btnRatingUp, btnRatingDown;
 
   public void clickAdminUsers() {
-    aUsers.click();
+    $(aUsers).click();
   }
 
   public void InputSearchImages(String SearchImg) {
@@ -209,11 +211,11 @@ public class HomePage extends BasePage {
     targetElement.sendKeys(value);
   }
 
-  @FindBy(id = "aAddUser")
+  @FindBy(css = "#aAddUser")
   private WebElement aAddUser;
 
   public void clickAddUser() {
-    aAddUser.click();
+    $(aAddUser).click();
   }
 
   @FindBy(id = "btnReset")
@@ -224,11 +226,12 @@ public class HomePage extends BasePage {
   }
 
   /// IMAGES
-  @FindBy(xpath = "//*[@id=\"aImages\"]")
-  private WebElement aImages;
+  @FindBy(css = "#aImages")
+  private  WebElement aImage;
 
   public void clickImages() {
-    aImages.click();
+    $(aImage).shouldBe(Condition.visible).click();
+
   }
 
   @FindBy(id = "tbUEL")
@@ -255,12 +258,12 @@ public class HomePage extends BasePage {
     typeIn(value, imageDesctiption);
   }
 
-  @FindBy(id = "tbAuthor")
+  @FindBy(css = "#tbAuthor")
   private WebElement imageAuthor;
 
   public void typeInImageAuthor(String value) {
-    imageAuthor.clear();
-    typeIn(value, imageAuthor);
+    $(imageAuthor).setValue(value);
+   // typeIn(value, imageAuthor);
   }
 
   @FindBy(id = "tbPrice")

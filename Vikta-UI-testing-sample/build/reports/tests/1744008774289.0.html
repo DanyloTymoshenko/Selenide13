@@ -1,0 +1,546 @@
+<html><head>
+    <title>ImageItems' lab</title>
+    </head><body><div>
+        <!--TODO: Seems we've got a CSS-hell here. Find a UI-guy to dig into and organize the styles properly .-->
+
+        <link rel="stylesheet" href="/css/main.css">
+
+        <link rel="stylesheet" href="/css/style.css">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <link href="https://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i" rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </div>
+
+
+<style type="text/css">
+table{width:100%; border-collapse:collapse; table-layout:auto; vertical-align:top; margin-bottom:15px; border:1px solid #999999;}
+table thead th{color:#FFFFFF; background-color:#000000; border:1px solid #999999; border-collapse:collapse; text-align:center; table-layout:auto; vertical-align:middle;}
+table tbody td{vertical-align:top; border-collapse:collapse; border-left:1px solid #999999; border-right:1px solid #999999;}
+table thead th, table tbody td{padding:5px; border-collapse:collapse;}
+table tbody tr.light{color:#CCCCCC; background-color:#333333;}
+table tbody tr.dark{color:#CCCCCC; background-color:#1E1E1E;}
+  </style>
+
+
+<div>
+    <!-- https://www.mkyong.com/spring-boot/spring-boot-spring-security-thymeleaf-example/ -->
+    <nav class="navbar navbar-inverse" style="margin-bottom:5px">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">V</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/" id="aHome">Home</a></li>
+
+                    <li class="dropdown"><a href="/admin/hut" id="aAdminHut">Hut</a></li>
+                    <li class="active"><a href="/admin/imageitems" id="aImages">Images</a></li>
+                    <li class="dropdown"><a href="/admin/add_image" id="aAddImage">Add an image</a></li>
+                    <li class="active"><a href="/admin/categories" id="aCategories">Categories</a></li>
+                    <li class="dropdown"><a href="/admin/add_category" id="aAddCategory">Add a category</a></li>
+                    <li class="active"><a href="/admin/users" id="aUsers">Users</a></li>
+                    <li class="dropdown"><a href="/admin/add_user" id="aAddUser">Create user</a></li>
+
+                    
+                    
+                    
+                    
+                    
+
+                    <li class="dropdown">
+                        <a id="aUsersStuffMenuHeader" class="dropdown-toggle" data-toggle="dropdown" href="#">User's stuff
+                            <span class="caret"></span></a>
+                        <ul id="ulUsersStuffMenu" class="dropdown-menu">
+                            <!--Excluded intentionally <li><a th:href="@{/common/addresses}" id="aUsrAddresses">My addresses</a></li>
+                            <li><a th:href="@{/common/add_address}" id="aUsrAddAddress">Add address</a></li>-->
+                            <li><a href="/common/paymentcards" id="aUsrCards">My cards</a></li>
+                            <li><a href="/common/add_paymentcard" id="aUsrAddCard">Add card</a></li>
+                        </ul>
+                    </li>
+
+                    
+                    
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li class="active">
+                            <span class="navbar-brand">
+                                <span class="active" id="sploggedInName">admin</span> |
+                                <span>[ADMIN]</span> |
+                                <a id="aLogoutTop" href="/logout" class="active header__logout">
+                                    <img src="/images/header-logout.svg" width="20" height="20" alt="">
+                                </a>
+                            </span>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</div>
+        
+
+        <div id="divSearch" style="margin-left:2%; border-bottom:1px dotted #666; width:97%">
+        <div class="content-container">
+            <form action="/admin/imageitems/search/SimpleSearchCriteria(term=null)" method="post" class="form-horizontal">
+                <div class="row">
+                    <div class="col-md-12 form-group" style="border-radius: 5rem; background-color: #C0C0C0; opacity: 0.75;">
+                        <input id="tbTerm" type="text" placeholder="Search..." class="text-input text-input--regular" style="width: 40%" name="term" value="">
+
+                        <button id="btnSearch" type="submit" class="button button--regular button--primary">Search</button>
+                        <input id="btnResetSearchCriteria" type="reset" class="button button--regular button--secondary" value="Reset">
+
+                        <span style="margin-left: 10px; font-weight: bold; font-style: italic;">Use “+” for AND, “|” for OR, “-“ for NOT, parentheses and "~" for fuzziness. E.g. "Souz~2+MKS+(12|13)"</span>
+                    </div>
+                    <div class="col-md-1 form-group">
+                        
+                        <div>
+
+            <div id="divErrorsAndMessages" style="border-radius: 1rem; background-color: #C0C0C0; opacity: 0.75;">
+                <ul>
+                    
+                </ul>
+
+                <ul>
+                    
+                </ul>
+
+                
+
+                <div id="divMsgOrErr" class="table table-striped" style="margin-bottom: 10px;">
+                    <span style="margin: 10px; font-weight: bold;"></span>
+                </div>
+            </div>
+
+        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+        <div>
+            <table id="tblImgs" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Author</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Rating</th>
+                        <th>Image</th>
+                        <th>Image URL</th>
+                        <th>Tags</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="trImage_14" style="font-weight: bold; color: black">
+                        <td>1</td>
+                        <td data-kind="author">Test</td>
+                        <td data-kind="title">
+                            <a href="/admin/add_image/14">Features of being in service in Arktika.</a>
+                        </td>
+                        <td data-kind="description">TEST</td>
+                        <td data-kind="price">13.00</td>
+                        <td data-kind="rating">3</td>
+                        <td data-kind="Image">
+                            <img src="https://www.google.com/imgres?q=owl%20photo&amp;imgurl=https%3A%2F%2Fwww.akronzoo.org%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Funcropped_xl%2Fpublic%2F2022-05%2FSnowy-owl-Frost.png%3Fitok%3Dbw8666Ly&amp;imgrefurl=https%3A%2F%2Fwww.akronzoo.org%2Fbirds%2Fsnowy-owl&amp;docid=HJnJFSxsErnqWM&amp;tbnid=eAY5ZvktTqj35M&amp;vet=12ahUKEwiw_5CizriMAxUkxAIHHQdkEocQM3oFCIUBEAA..i&amp;w=1600&amp;h=1600&amp;hcb=2&amp;ved=2ahUKEwiw_5CizriMAxUkxAIHHQdkEocQM3oFCIUBEAA" alt="... image" height="60">
+                        </td>
+                        <td data-kind="imageURL">
+                            <a href="https://www.google.com/imgres?q=owl%20photo&amp;imgurl=https%3A%2F%2Fwww.akronzoo.org%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Funcropped_xl%2Fpublic%2F2022-05%2FSnowy-owl-Frost.png%3Fitok%3Dbw8666Ly&amp;imgrefurl=https%3A%2F%2Fwww.akronzoo.org%2Fbirds%2Fsnowy-owl&amp;docid=HJnJFSxsErnqWM&amp;tbnid=eAY5ZvktTqj35M&amp;vet=12ahUKEwiw_5CizriMAxUkxAIHHQdkEocQM3oFCIUBEAA..i&amp;w=1600&amp;h=1600&amp;hcb=2&amp;ved=2ahUKEwiw_5CizriMAxUkxAIHHQdkEocQM3oFCIUBEAA">https://www.google.com/imgres?q=owl%20photo&amp;imgurl=https%3A%2F%2Fwww.akronzoo.org%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Funcropped_xl%2Fpublic%2F2022-05%2FSnowy-owl-Frost.png%3Fitok%3Dbw8666Ly&amp;imgrefurl=https%3A%2F%2Fwww.akronzoo.org%2Fbirds%2Fsnowy-owl&amp;docid=HJnJFSxsErnqWM&amp;tbnid=eAY5ZvktTqj35M&amp;vet=12ahUKEwiw_5CizriMAxUkxAIHHQdkEocQM3oFCIUBEAA..i&amp;w=1600&amp;h=1600&amp;hcb=2&amp;ved=2ahUKEwiw_5CizriMAxUkxAIHHQdkEocQM3oFCIUBEAA</a><br>
+                        </td>
+                        <td>[Subete, DSP, gold, 0.3.8, 2633 - Octoberfest Lager Blend, 3 tablespoon, Black or African American, Mostly cloudy, open system, debitis_et, Latin, Practical Granite Watch, Fish and Chips, Yamato 000593]</td>
+                        <td>
+                            <a href="/admin/imageitems/delete/14" class="btn btn-md btn-warning btn-block">Delete</a>
+                        </td>
+                    </tr>
+                    <tr id="trImage_15">
+                        <td>2</td>
+                        <td data-kind="author">Miss Colton Tromp</td>
+                        <td data-kind="title">
+                            <a href="/admin/add_image/15">41447604 N0 / Max</a>
+                        </td>
+                        <td data-kind="description">A Darkling Plain Tall tale Adipisci natus mollitia omnis quidem.  Elroyside  936265-81</td>
+                        <td data-kind="price">1.58</td>
+                        <td data-kind="rating">0</td>
+                        <td data-kind="Image">
+                            <img src="https://hsto.org/getpro/habr/post_images/448/7c5/771/4487c5771ba33d0aafd3616f7b72385c.png" alt="... image" height="60">
+                        </td>
+                        <td data-kind="imageURL">
+                            <a href="https://hsto.org/getpro/habr/post_images/448/7c5/771/4487c5771ba33d0aafd3616f7b72385c.png">https://hsto.org/getpro/habr/post_images/448/7c5/771/4487c5771ba33d0aafd3616f7b72385c.png</a><br>
+                        </td>
+                        <td>[heck no pal, 3724 - Belgian Saison, NSAU, 285, #4EB612, B0002XTOHK, Dutch, owooooo]</td>
+                        <td>
+                            <a href="/admin/imageitems/delete/15" class="btn btn-md btn-warning btn-block">Delete</a>
+                        </td>
+                    </tr>
+                    <tr id="trImage_16" style="font-weight: bold; color: black">
+                        <td>3</td>
+                        <td data-kind="author">Homer Dach</td>
+                        <td data-kind="title">
+                            <a href="/admin/add_image/16">Io N1 / error</a>
+                        </td>
+                        <td data-kind="description">The Road Less Traveled Horror   Ironbarrow Campus</td>
+                        <td data-kind="price">19.11</td>
+                        <td data-kind="rating">3</td>
+                        <td data-kind="Image">
+                            <img src="https://www.adapttransformation.com/wp-content/uploads/flip.jpg" alt="... image" height="60">
+                        </td>
+                        <td data-kind="imageURL">
+                            <a href="https://www.adapttransformation.com/wp-content/uploads/flip.jpg">https://www.adapttransformation.com/wp-content/uploads/flip.jpg</a><br>
+                        </td>
+                        <td>[-128.66821, -55.258994, US, 1, -81.367888, blanditiis_magni, Vesemir, Legacy Administration Manager, Harvey, Willamette, Sweet Basil, Kerluke-Lebsack, -37.210070, The Caretaker, http://flags.fmcdn.net/data/flags/w580/ki.png, 64megaparsecs, Sun, client-server, Ring Nebula]</td>
+                        <td>
+                            <a href="/admin/imageitems/delete/16" class="btn btn-md btn-warning btn-block">Delete</a>
+                        </td>
+                    </tr>
+                    <tr id="trImage_17">
+                        <td>4</td>
+                        <td data-kind="author">Connie Gerhold MD</td>
+                        <td data-kind="title">
+                            <a href="/admin/add_image/17">75light years N2 / Glynda Prohaska</a>
+                        </td>
+                        <td data-kind="description">Great Work of Time Mythology   246</td>
+                        <td data-kind="price">12.87</td>
+                        <td data-kind="rating">2</td>
+                        <td data-kind="Image">
+                            <img src="https://lakshaysuri.files.wordpress.com/2016/06/screen-shot-2016-06-04-at-23-26-28.png" alt="... image" height="60">
+                        </td>
+                        <td data-kind="imageURL">
+                            <a href="https://lakshaysuri.files.wordpress.com/2016/06/screen-shot-2016-06-04-at-23-26-28.png">https://lakshaysuri.files.wordpress.com/2016/06/screen-shot-2016-06-04-at-23-26-28.png</a><br>
+                        </td>
+                        <td>[MMLT, Prometheus, Flowerlake TAFE, Old Woman, Expressway, Hecuba, http://flags.fmcdn.net/data/flags/w580/me.png, Black or African American, Executive, Aegean, Hip Hop]</td>
+                        <td>
+                            <a href="/admin/imageitems/delete/17" class="btn btn-md btn-warning btn-block">Delete</a>
+                        </td>
+                    </tr>
+                    <tr id="trImage_18" style="font-weight: bold; color: black">
+                        <td>5</td>
+                        <td data-kind="author">Mr. Dana Lowe</td>
+                        <td data-kind="title">
+                            <a href="/admin/add_image/18">Mi-35 N3 / Messier 83</a>
+                        </td>
+                        <td data-kind="description">When the Green Woods Laugh Science fiction   4663023016609</td>
+                        <td data-kind="price">15.91</td>
+                        <td data-kind="rating">0</td>
+                        <td data-kind="Image">
+                            <img src="http://www.tayyebi.com/wp-content/uploads/2019/01/maxresdefault-768x432.jpg" alt="... image" height="60">
+                        </td>
+                        <td data-kind="imageURL">
+                            <a href="http://www.tayyebi.com/wp-content/uploads/2019/01/maxresdefault-768x432.jpg">http://www.tayyebi.com/wp-content/uploads/2019/01/maxresdefault-768x432.jpg</a><br>
+                        </td>
+                        <td>[9781890358471, Hephaestus, 4373045656447, 867130783118885, white, 0, Orbital Sciences]</td>
+                        <td>
+                            <a href="/admin/imageitems/delete/18" class="btn btn-md btn-warning btn-block">Delete</a>
+                        </td>
+                    </tr>
+                    <tr id="trImage_19">
+                        <td>6</td>
+                        <td data-kind="author">Miss Chante Davis</td>
+                        <td data-kind="title">
+                            <a href="/admin/add_image/19">Traal N4 / P-39</a>
+                        </td>
+                        <td data-kind="description">Noli Me Tangere Science fiction Quia voluptatem veritatis iste natus reiciendis ut quia.   American Cat Fanciers Association</td>
+                        <td data-kind="price">15.97</td>
+                        <td data-kind="rating">3</td>
+                        <td data-kind="Image">
+                            <img src="https://cdn.acidcow.com/pics/20131118/gifs_04.gif" alt="... image" height="60">
+                        </td>
+                        <td data-kind="imageURL">
+                            <a href="https://cdn.acidcow.com/pics/20131118/gifs_04.gif">https://cdn.acidcow.com/pics/20131118/gifs_04.gif</a><br>
+                        </td>
+                        <td>[Artichoke, iste, small, Technician, Asian, vct]</td>
+                        <td>
+                            <a href="/admin/imageitems/delete/19" class="btn btn-md btn-warning btn-block">Delete</a>
+                        </td>
+                    </tr>
+                    <tr id="trImage_20" style="font-weight: bold; color: black">
+                        <td>7</td>
+                        <td data-kind="author">Gaston Kshlerin</td>
+                        <td data-kind="title">
+                            <a href="/admin/add_image/20">3724 - Belgian Saison N5 / AEM</a>
+                        </td>
+                        <td data-kind="description">Such, Such Were the Joys Fanfiction  http://lorempixel.com/640/480/fashion/  Japanese spanish mackerel</td>
+                        <td data-kind="price">0.53</td>
+                        <td data-kind="rating">2</td>
+                        <td data-kind="Image">
+                            <img src="https://www.altexsoft.com/media/2018/12/Oursource-product-development-25_0.jpg" alt="... image" height="60">
+                        </td>
+                        <td data-kind="imageURL">
+                            <a href="https://www.altexsoft.com/media/2018/12/Oursource-product-development-25_0.jpg">https://www.altexsoft.com/media/2018/12/Oursource-product-development-25_0.jpg</a><br>
+                        </td>
+                        <td>[-131.22125, Kirin Inchiban, Bosniak, Tempsoft, CSA, 2°C, xx, Violin, Pimento Berries, Cecil Wolff, Rigel, #3451D7, Oxenfurt, Cronus]</td>
+                        <td>
+                            <a href="/admin/imageitems/delete/20" class="btn btn-md btn-warning btn-block">Delete</a>
+                        </td>
+                    </tr>
+                    <tr id="trImage_21">
+                        <td>8</td>
+                        <td data-kind="author">Buck Cruickshank</td>
+                        <td data-kind="title">
+                            <a href="/admin/add_image/21">Hermes N6 / Mustard Seed Black</a>
+                        </td>
+                        <td data-kind="description">The Doors of Perception Biography/Autobiography   woof</td>
+                        <td data-kind="price">13.51</td>
+                        <td data-kind="rating">0</td>
+                        <td data-kind="Image">
+                            <img src="https://www.automationrepository.com/wordpress/wp-content/uploads/ar/hybrid-framework-borrows-from-other-frameworks.png" alt="... image" height="60">
+                        </td>
+                        <td data-kind="imageURL">
+                            <a href="https://www.automationrepository.com/wordpress/wp-content/uploads/ar/hybrid-framework-borrows-from-other-frameworks.png">https://www.automationrepository.com/wordpress/wp-content/uploads/ar/hybrid-framework-borrows-from-other-frameworks.png</a><br>
+                        </td>
+                        <td>[Associate Degree in Architectural Technology, Viper, 1, lion, philosopher, Merican Ale, Lamuella, Aerodynamic Leather Knife, 9781623470647, Hiram Skiles DDS, Associate, 5317702113668, Slartibartfast, US Dollar, Coordinator, 9587043-6, ruff, 9780767937825, 8137651785832, Sports, KillerCode317300, 0405211311196, 1278024312921]</td>
+                        <td>
+                            <a href="/admin/imageitems/delete/21" class="btn btn-md btn-warning btn-block">Delete</a>
+                        </td>
+                    </tr>
+                    <tr id="trImage_22" style="font-weight: bold; color: black">
+                        <td>9</td>
+                        <td data-kind="author">Dorsey Powlowski</td>
+                        <td data-kind="title">
+                            <a href="/admin/add_image/22">62.233096 N7 / Planner</a>
+                        </td>
+                        <td data-kind="description">This Side of Paradise Western   Ring Nebula</td>
+                        <td data-kind="price">18.37</td>
+                        <td data-kind="rating">5</td>
+                        <td data-kind="Image">
+                            <img src="https://blog.testproject.io/wp-content/uploads/2017/02/Automation-Framework.png" alt="... image" height="60">
+                        </td>
+                        <td data-kind="imageURL">
+                            <a href="https://blog.testproject.io/wp-content/uploads/2017/02/Automation-Framework.png">https://blog.testproject.io/wp-content/uploads/2017/02/Automation-Framework.png</a><br>
+                        </td>
+                        <td>[Willamette, deserunt_corporis, Ross 154, Washington, US, Mattress, Marvin]</td>
+                        <td>
+                            <a href="/admin/imageitems/delete/22" class="btn btn-md btn-warning btn-block">Delete</a>
+                        </td>
+                    </tr>
+                    <tr id="trImage_23">
+                        <td>10</td>
+                        <td data-kind="author">Germaine Toy</td>
+                        <td data-kind="title">
+                            <a href="/admin/add_image/23">#D39502 N8 / Outsourcing / Offshoring</a>
+                        </td>
+                        <td data-kind="description">Time To Murder And Create Tall tale Dolorem velit laborum et eum.   Umbriel</td>
+                        <td data-kind="price">12.48</td>
+                        <td data-kind="rating">2</td>
+                        <td data-kind="Image">
+                            <img src="https://blog.testproject.io/wp-content/uploads/2020/05/BusinessLayer-PageObjectPattern.jpeg" alt="... image" height="60">
+                        </td>
+                        <td data-kind="imageURL">
+                            <a href="https://blog.testproject.io/wp-content/uploads/2020/05/BusinessLayer-PageObjectPattern.jpeg">https://blog.testproject.io/wp-content/uploads/2020/05/BusinessLayer-PageObjectPattern.jpeg</a><br>
+                        </td>
+                        <td>[1, Messier 107, Mallowtown High School, US, orchid, 112.85595, Stamm and Sons, Chantilly-Tiffany, http://flags.fmcdn.net/data/flags/w580/iq.png, eum, 1819248178, US, Iran, Dark Lager, Cardguard, smol pupperino, xx, Trappistes Rochefort 8]</td>
+                        <td>
+                            <a href="/admin/imageitems/delete/23" class="btn btn-md btn-warning btn-block">Delete</a>
+                        </td>
+                    </tr>
+                    <tr id="trImage_24" style="font-weight: bold; color: black">
+                        <td>11</td>
+                        <td data-kind="author">Miss Heike Purdy</td>
+                        <td data-kind="title">
+                            <a href="/admin/add_image/24">University of Alaska Press N9 / Uranus</a>
+                        </td>
+                        <td data-kind="description">By Grand Central Station I Sat Down and Wept Tall tale   Mallowpond College</td>
+                        <td data-kind="price">3.33</td>
+                        <td data-kind="rating">3</td>
+                        <td data-kind="Image">
+                            <img src="https://www.slideteam.net/media/catalog/product/cache/960x720/a/u/automation_benefits_showing_5_benefit_options_with_reduction_of_cost_and_errors_Slide01.jpg" alt="... image" height="60">
+                        </td>
+                        <td data-kind="imageURL">
+                            <a href="https://www.slideteam.net/media/catalog/product/cache/960x720/a/u/automation_benefits_showing_5_benefit_options_with_reduction_of_cost_and_errors_Slide01.jpg">https://www.slideteam.net/media/catalog/product/cache/960x720/a/u/automation_benefits_showing_5_benefit_options_with_reduction_of_cost_and_errors_Slide01.jpg</a><br>
+                        </td>
+                        <td>[Legacy Community-Services Representative, barber, Isreal Cruickshank, 1859258778, Hyperion, Human Advertising Director, New Zealand Dollar, Virgin Galactic, Airbus 380, Field, NPR, Random Dent, Emaj, Dbmaj, 0293488053, Europe/Istanbul]</td>
+                        <td>
+                            <a href="/admin/imageitems/delete/24" class="btn btn-md btn-warning btn-block">Delete</a>
+                        </td>
+                    </tr>
+                    <tr id="trImage_25">
+                        <td>12</td>
+                        <td data-kind="author">Eugenio Hermann</td>
+                        <td data-kind="title">
+                            <a href="/admin/add_image/25">B0000AAGDL N10 / Capricornus</a>
+                        </td>
+                        <td data-kind="description">A Many-Splendoured Thing Speech  Almonds  ipsum</td>
+                        <td data-kind="price">16.90</td>
+                        <td data-kind="rating">5</td>
+                        <td data-kind="Image">
+                            <img src="https://i.ytimg.com/vi/P_SJ0Oc45lA/maxresdefault.jpg" alt="... image" height="60">
+                        </td>
+                        <td data-kind="imageURL">
+                            <a href="https://i.ytimg.com/vi/P_SJ0Oc45lA/maxresdefault.jpg">https://i.ytimg.com/vi/P_SJ0Oc45lA/maxresdefault.jpg</a><br>
+                        </td>
+                        <td>[Eunostus, 3638 - Bavarian Wheat, Light Lager, Kanlam, ruff, Artemis, hn, B0000DHBRP, Asian, Chloe, Marketing, Zucchini, Loonquawl and Phouchg, Ostbarrow Campus, 54521209, GED or alternative credential, 20529192, Vegetable Stock, pink, www.bruen-bailey.biz]</td>
+                        <td>
+                            <a href="/admin/imageitems/delete/25" class="btn btn-md btn-warning btn-block">Delete</a>
+                        </td>
+                    </tr>
+                    <tr id="trImage_26" style="font-weight: bold; color: black">
+                        <td>13</td>
+                        <td data-kind="author">Dr. Stephan Ledner</td>
+                        <td data-kind="title">
+                            <a href="/admin/add_image/26">Trumpet N11 / Daliaberg</a>
+                        </td>
+                        <td data-kind="description">The Waste Land Biography/Autobiography   Peking Duck</td>
+                        <td data-kind="price">20.70</td>
+                        <td data-kind="rating">4</td>
+                        <td data-kind="Image">
+                            <img src="https://plane-sale.com/system/editorjs/year_2020/month_06/day_14/hour_21/minute_48/second_10/ce96e62bd540b6d77481500f12e6ba95.jpg" alt="... image" height="60">
+                        </td>
+                        <td data-kind="imageURL">
+                            <a href="https://plane-sale.com/system/editorjs/year_2020/month_06/day_14/hour_21/minute_48/second_10/ce96e62bd540b6d77481500f12e6ba95.jpg">https://plane-sale.com/system/editorjs/year_2020/month_06/day_14/hour_21/minute_48/second_10/ce96e62bd540b6d77481500f12e6ba95.jpg</a><br>
+                        </td>
+                        <td>[maximized, 1, Pop, Portuguese, Hirthe, Block and Grant, 57561783, Heat Stroke, Botan shrimp, http://flags.fmcdn.net/data/flags/w580/fi.png, 3791, Harpy, Boeing 737, Sleek Leather Clock, SAGE, NSAU, #35F5FE]</td>
+                        <td>
+                            <a href="/admin/imageitems/delete/26" class="btn btn-md btn-warning btn-block">Delete</a>
+                        </td>
+                    </tr>
+                    <tr id="trImage_27">
+                        <td>14</td>
+                        <td data-kind="author">Mrs. Lera Upton</td>
+                        <td data-kind="title">
+                            <a href="/admin/add_image/27">Therazane N12 / Comorian</a>
+                        </td>
+                        <td data-kind="description">The Moon by Night Fable Suscipit ut nostrum amet est aut ut ea neque quia.   Trumpet</td>
+                        <td data-kind="price">12.92</td>
+                        <td data-kind="rating">5</td>
+                        <td data-kind="Image">
+                            <img src="https://avatars.mds.yandex.net/get-ynews/1852532/9012e694ab3668f5116396758a5ea5c2/796x448" alt="... image" height="60">
+                        </td>
+                        <td data-kind="imageURL">
+                            <a href="https://avatars.mds.yandex.net/get-ynews/1852532/9012e694ab3668f5116396758a5ea5c2/796x448">https://avatars.mds.yandex.net/get-ynews/1852532/9012e694ab3668f5116396758a5ea5c2/796x448</a><br>
+                        </td>
+                        <td>[-23°C, NASA Jet Propulsion Laboratory, -11.766770, -1.0244505, Substance abuse, Zoe, Harp, Tara Flatley, butcher, 121parsecs, 212-86485, Missy, Ring Nebula, owooooo, Orchestrator, Falconholt Secondary College, 0873890450, 631 Yong Ridge, Saturn]</td>
+                        <td>
+                            <a href="/admin/imageitems/delete/27" class="btn btn-md btn-warning btn-block">Delete</a>
+                        </td>
+                    </tr>
+                    <tr id="trImage_28" style="font-weight: bold; color: black">
+                        <td>15</td>
+                        <td data-kind="author">Ahmad Thompson</td>
+                        <td data-kind="title">
+                            <a href="/admin/add_image/28">xx N13 / South Delmermouth</a>
+                        </td>
+                        <td data-kind="description">Ring of Bright Water Crime/Detective   Cloudy periods</td>
+                        <td data-kind="price">7.55</td>
+                        <td data-kind="rating">1</td>
+                        <td data-kind="Image">
+                            <img src="https://i.pinimg.com/originals/d1/50/3b/d1503b617abf6a589f79177f7f1373a0.png" alt="... image" height="60">
+                        </td>
+                        <td data-kind="imageURL">
+                            <a href="https://i.pinimg.com/originals/d1/50/3b/d1503b617abf6a589f79177f7f1373a0.png">https://i.pinimg.com/originals/d1/50/3b/d1503b617abf6a589f79177f7f1373a0.png</a><br>
+                        </td>
+                        <td>[TURPENTINE OIL, Heavy Duty Aluminum Bag, receptionist, blep, Cocker Spaniel, Mercury, Sirius B, 0, 9705697217953]</td>
+                        <td>
+                            <a href="/admin/imageitems/delete/28" class="btn btn-md btn-warning btn-block">Delete</a>
+                        </td>
+                    </tr>
+                    <tr id="trImage_29">
+                        <td>16</td>
+                        <td data-kind="author">Wilbur Goodwin II</td>
+                        <td data-kind="title">
+                            <a href="/admin/add_image/29">D# N14 / Master of Medicine</a>
+                        </td>
+                        <td data-kind="description">The Widening Gyre Essay   mlt</td>
+                        <td data-kind="price">17.62</td>
+                        <td data-kind="rating">3</td>
+                        <td data-kind="Image">
+                            <img src="https://1.bp.blogspot.com/-C1Cdw8385tw/VcqqiCrP2_I/AAAAAAAAAxc/qWh4zvyMkxE/s1600/New%2BOpen%2BMe%2BFirst%2B-%2BGetting%2BStarted.png" alt="... image" height="60">
+                        </td>
+                        <td data-kind="imageURL">
+                            <a href="https://1.bp.blogspot.com/-C1Cdw8385tw/VcqqiCrP2_I/AAAAAAAAAxc/qWh4zvyMkxE/s1600/New%2BOpen%2BMe%2BFirst%2B-%2BGetting%2BStarted.png">https://1.bp.blogspot.com/-C1Cdw8385tw/VcqqiCrP2_I/AAAAAAAAAxc/qWh4zvyMkxE/s1600/New%2BOpen%2BMe%2BFirst%2B-%2BGetting%2BStarted.png</a><br>
+                        </td>
+                        <td>[Linen, Ukelele, Sleek Silk Chair, Collinder 140, gold]</td>
+                        <td>
+                            <a href="/admin/imageitems/delete/29" class="btn btn-md btn-warning btn-block">Delete</a>
+                        </td>
+                    </tr>
+                    <tr id="trImage_30" style="font-weight: bold; color: black">
+                        <td>17</td>
+                        <td data-kind="author">Ivan Smitham</td>
+                        <td data-kind="title">
+                            <a href="/admin/add_image/30">Europe/Skopje N15 / Messier 83</a>
+                        </td>
+                        <td data-kind="description">Nectar in a Sieve Mythology  LLC  Patterdale Terrier</td>
+                        <td data-kind="price">8.74</td>
+                        <td data-kind="rating">4</td>
+                        <td data-kind="Image">
+                            <img src="https://www.software-testing.ru/images/stories/library/study-of-test-automation/study-of-test-automation2.png" alt="... image" height="60">
+                        </td>
+                        <td data-kind="imageURL">
+                            <a href="https://www.software-testing.ru/images/stories/library/study-of-test-automation/study-of-test-automation2.png">https://www.software-testing.ru/images/stories/library/study-of-test-automation/study-of-test-automation2.png</a><br>
+                        </td>
+                        <td>[71AU, bow wow]</td>
+                        <td>
+                            <a href="/admin/imageitems/delete/30" class="btn btn-md btn-warning btn-block">Delete</a>
+                        </td>
+                    </tr>
+                    <tr id="trImage_31">
+                        <td>18</td>
+                        <td data-kind="author">Delmy Cruickshank</td>
+                        <td data-kind="title">
+                            <a href="/admin/add_image/31">http://flags.fmcdn.net/data/flags/w580/gy.png N16 / MESALAMINE</a>
+                        </td>
+                        <td data-kind="description">The Wealth of Nations Speech Animi quo est saepe ex corporis rerum error.   Mythopoeia</td>
+                        <td data-kind="price">16.25</td>
+                        <td data-kind="rating">3</td>
+                        <td data-kind="Image">
+                            <img src="https://automated-testing.info/uploads/default/original/2X/e/eda6f8401746a842e9767d2230d6fd661dbda34b.png" alt="... image" height="60">
+                        </td>
+                        <td data-kind="imageURL">
+                            <a href="https://automated-testing.info/uploads/default/original/2X/e/eda6f8401746a842e9767d2230d6fd661dbda34b.png">https://automated-testing.info/uploads/default/original/2X/e/eda6f8401746a842e9767d2230d6fd661dbda34b.png</a><br>
+                        </td>
+                        <td>[bz, 232-23827, Master of Biological Science, JAXA, -21°C]</td>
+                        <td>
+                            <a href="/admin/imageitems/delete/31" class="btn btn-md btn-warning btn-block">Delete</a>
+                        </td>
+                    </tr>
+                    <tr id="trImage_32" style="font-weight: bold; color: black">
+                        <td>19</td>
+                        <td data-kind="author">Miss Darren Simonis</td>
+                        <td data-kind="title">
+                            <a href="/admin/add_image/32">E N17 / Tuna Sashimi</a>
+                        </td>
+                        <td data-kind="description">The Skull Beneath the Skin Comic/Graphic Novel   CLP</td>
+                        <td data-kind="price">17.92</td>
+                        <td data-kind="rating">3</td>
+                        <td data-kind="Image">
+                            <img src="https://icdn.lenta.ru/images/2017/01/09/19/20170109192034133/pic_2e72c15b1c2b33ba6bac9f051074d9b3.jpg" alt="... image" height="60">
+                        </td>
+                        <td data-kind="imageURL">
+                            <a href="https://icdn.lenta.ru/images/2017/01/09/19/20170109192034133/pic_2e72c15b1c2b33ba6bac9f051074d9b3.jpg">https://icdn.lenta.ru/images/2017/01/09/19/20170109192034133/pic_2e72c15b1c2b33ba6bac9f051074d9b3.jpg</a><br>
+                        </td>
+                        <td>[Hades, xx, #B37BEB, Snow, xx, South Africa, Messier 107, Chilli con Carne, 33°C, 89868-160, EUR, Verso Books, lbr, Ace Books, Owl Nebula, #A4A2E2, Brookville High School, 60315-3954, aut_perspiciatis, Headache, Storm King Stout, Serbia, Piano]</td>
+                        <td>
+                            <a href="/admin/imageitems/delete/32" class="btn btn-md btn-warning btn-block">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+
+        <div class="container">
+
+            <footer>
+                <a href="https://www.griddynamics.com/">GridDynamics</a>, 2019-2020
+                <span>
+                    | Logged user: <span>admin</span> |
+                    Roles: <span>[ADMIN]</span> |
+                    <a id="aLogoutBottom" href="/logout">Log Out</a>
+                </span>
+
+            </footer>
+        </div>
+
+    </div>
+    
+</body></html>

@@ -102,6 +102,10 @@ abstract class BaseSteps {
       public String userPassword() {
         return "123";
       }
+      @Override
+      public String imagesPageUrl() {
+        return "http://localhost:5054/admin/imageitems";
+      }
     };
   }
 
