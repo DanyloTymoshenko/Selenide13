@@ -11,20 +11,11 @@ import org.testng.annotations.Test;
 
 public class AdminTest extends BaseTest {
 
-  /*@Test(groups = { "smoke", "login" })
-  public void testAdminUserIsAbleToLogin() {
-    // Given user opens Login page
-    loginSteps.openLoginPage();
 
-    // When user logins as ADMIN user
-    loginSteps.loginAsAdmin();
-
-    // Then Home is displayed for the ADMIN user
-    loginSteps.verifyCurrentPageIsHomePageForTheAdmin();
-  }*/
-
-  @Test(enabled = false)
+  @Test()
   public void testAdminGetUserTable() {
+
+
     loginSteps.openLoginPage();
 
     // When user logins as ADMIN user
@@ -38,10 +29,10 @@ public class AdminTest extends BaseTest {
     adminSteps.getTableRowContentById();
     adminSteps.writeTableRowContentById();
     System.out.println("DELETE ROW");
-    adminSteps.deleteRowById();
+    //adminSteps.deleteRowById();
   }
 
-  @Test(enabled = false)
+  @Test()
   public void testAdminUserEdit() {
     loginSteps.openLoginPage();
     loginSteps.loginAsAdmin();
@@ -59,7 +50,7 @@ public class AdminTest extends BaseTest {
     adminSteps.clickSave();
   }
 
-  @Test(enabled = false)
+  @Test()
   public void testAdminUserAdd() {
     loginSteps.openLoginPage();
     loginSteps.loginAsAdmin();
@@ -86,7 +77,7 @@ public class AdminTest extends BaseTest {
     adminSteps.clickSave();
   }
 
-  @Test(enabled = false)
+  @Test()
   public void testAdminGetImageTable() {
     loginSteps.openLoginPage();
 
@@ -100,11 +91,11 @@ public class AdminTest extends BaseTest {
     System.out.println("FIND ALL CONTENT IN A ROW");
     adminSteps.getImageTableRowContentById();
     adminSteps.writeImageTableRowContentById();
-    System.out.println("DELETE ROW");
-    adminSteps.deleteImageRowById();
+    // System.out.println("DELETE ROW");
+    //adminSteps.deleteImageRowById();
   }
 
-  @Test(enabled = false)
+  @Test
   public void testAdminEditImage() {
     loginSteps.openLoginPage();
     loginSteps.loginAsAdmin();
@@ -122,6 +113,7 @@ public class AdminTest extends BaseTest {
     loginSteps.openLoginPage();
     loginSteps.loginAsAdmin();
     adminSteps.AddImage();
+    adminSteps.ImageAddTitle();
     adminSteps.editImage();
     adminSteps.clickReset();
     adminSteps.editImage();

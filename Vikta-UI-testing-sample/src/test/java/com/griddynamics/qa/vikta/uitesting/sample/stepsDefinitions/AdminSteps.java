@@ -31,19 +31,19 @@ public class AdminSteps extends BaseSteps {
 
   @Step
   public void getImagePage() {
+
     page().clickImages();
   }
 
-  String username = "AbAaAaeA-AeaA-AA";
+  String username = "qq";
   String dynamicId = "trUser_" + username;
-  String imageId = "trImage_14";
+  String imageId = "#trImage_19";
 
   @Step
   public void getUser() {
     $(dynamicId).hover();
   }
 
-  // #trUser_qq > td:nth-child(3)   //*[@id=\""+username+"\"]/td[2
   @Step
   public String getTableRowContentById() {
     /*if(!$("#"+dynamicId).exists()){throw new NoSuchElementException("ELEMENT "+ dynamicId +" is not FOUND");
@@ -54,8 +54,8 @@ public class AdminSteps extends BaseSteps {
   @Step
   public void writeTableRowContentById() {
     List<String> cells = $$("#" + dynamicId + " td")
-      .shouldBe(CollectionCondition.sizeGreaterThan(0))
-      .texts();
+            .shouldBe(CollectionCondition.sizeGreaterThan(0))
+            .texts();
     System.out.println("Row with ID [" + dynamicId + "] contains: ");
     for (int i = 0; i < cells.size(); i++) {
       System.out.println("  Row " + (i + 1) + ": " + cells.get(i));
@@ -79,7 +79,7 @@ public class AdminSteps extends BaseSteps {
 
   @Step
   public void clickUserProfileLink() {
-    $(By.xpath("//*[@id=\"trUser_AefAaAcA-AAAA-Ab\"]/td[2]/a")).click();
+    $(By.xpath("//*[@id=\"trUser_qq\"]/td[2]/a")).click();
   }
 
   @Step
@@ -101,17 +101,17 @@ public class AdminSteps extends BaseSteps {
 
   @Step
   public void clickImageEditLink() {
-    $(By.xpath("//*[@id=\"trImage_14\"]/td[3]/a")).click();
+    $(By.cssSelector("#trImage_19 > td:nth-child(3) > a")).click();
   }
 
   @Step
   public String getImageTableRowContentById() {
-    return $(By.id(imageId)).should(Condition.exist).shouldBe(Condition.visible).getText();
+    return $(By.cssSelector(imageId)).should(Condition.exist).shouldBe(Condition.visible).getText();
   }
 
   @Step
   public void writeImageTableRowContentById() {
-    List<String> cells = $$("#" + imageId + " td")
+    List<String> cells = $$( imageId + " td")
       .shouldBe(CollectionCondition.sizeGreaterThan(0))
       .texts();
     System.out.println("Image Row with ID [" + imageId + "] contains: ");
@@ -122,7 +122,7 @@ public class AdminSteps extends BaseSteps {
 
   @Step
   public void deleteImageRowById() {
-    SelenideElement deleteButton = $("#" + imageId + " > td:nth-child(10)");
+    SelenideElement deleteButton = $( imageId + " > td:nth-child(10)");
 
     deleteButton.shouldBe(Condition.visible, Duration.ofSeconds(5)).click();
     System.out.println("ROw" + imageId + " has been deleted");
@@ -130,7 +130,7 @@ public class AdminSteps extends BaseSteps {
 
   @Step
   public void editImage() {
-    page().typeInImageAuthor("Test");
+    page().typeInImageAuthor("TestAuthor");
     page().typeInImageDescription("TEST");
 
     page().typeInImagePrice("13");
@@ -141,6 +141,10 @@ public class AdminSteps extends BaseSteps {
       );
     page().ChangeRating(3);
     page().SetCategory("Pop");
+  }
+  @Step
+  public void ImageAddTitle(){
+    page().typeInImageTitle("TEST_TITLE");
   }
 
   @Step

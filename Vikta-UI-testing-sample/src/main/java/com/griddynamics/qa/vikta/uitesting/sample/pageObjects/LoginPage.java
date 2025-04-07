@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
  */
 public class LoginPage {
 
-  @FindBy(id = "tfLoginname")
+  @FindBy(css = "#tfLoginname")
   private WebElement txtLoginname;
 
   @FindBy(id = "tfPassword")
