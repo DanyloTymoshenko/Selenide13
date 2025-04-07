@@ -12,34 +12,30 @@ import lombok.val;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-
 public class UserTest extends BaseTest {
 
-    private String name ="qq";
-    private String password="123";
+  private String name = "qq";
+  private String password = "123";
 
-    @Test
-    public void testImageSearch(){
-        loginSteps.openLoginPage();
-        loginSteps.loginAsRegularUser();
+  @Test
+  public void testImageSearch() {
+    loginSteps.openLoginPage();
+    loginSteps.loginAsRegularUser();
 
+    homePageSteps.typeInSearchImage();
+    homePageSteps.typeInPriceFrom();
+    homePageSteps.typeInPriceTo();
+    homePageSteps.typeInRatingFrom();
+    homePageSteps.typeInRatingTo();
 
-        homePageSteps.typeInSearchImage();
-        homePageSteps.typeInPriceFrom();
-        homePageSteps.typeInPriceTo();
-        homePageSteps.typeInRatingFrom();
-        homePageSteps.typeInRatingTo();
+    homePageSteps.PressReset();
 
-        homePageSteps.PressReset();
+    homePageSteps.typeInSearchImage();
+    homePageSteps.typeInPriceFrom();
+    homePageSteps.typeInPriceTo();
+    homePageSteps.typeInRatingFrom();
+    homePageSteps.typeInRatingTo();
 
-        homePageSteps.typeInSearchImage();
-        homePageSteps.typeInPriceFrom();
-        homePageSteps.typeInPriceTo();
-        homePageSteps.typeInRatingFrom();
-        homePageSteps.typeInRatingTo();
-
-        homePageSteps.typeInSearchImage();
-
-    }
-
+    homePageSteps.PressSearch();
+  }
 }

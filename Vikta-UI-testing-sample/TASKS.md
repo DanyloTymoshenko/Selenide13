@@ -22,7 +22,7 @@ mvn clean test -Dcucumber.options="--tags @signup"
     - User management; //done
     - User search; // the search is odd
     - Image management; // done
-    - Image search;
+    - Image search; // done
     - Category management;
     - Category search;
     - Purchasing;
