@@ -409,6 +409,61 @@ public class HomePage extends BasePage {
     public void DeleteAddress(){
         $(btnDeleteAddress).click();
     }
+
+    /// CARDS
+
+    @FindBy(css = "#btnDelete2")
+    private WebElement btnDeleteCard;
+
+    public void btnDeleteCard(){
+        $(btnDeleteCard).click();
+    }
+
+    @FindBy(css = "#aCards")
+    private WebElement btnCards;
+
+    public void clickCards(){
+        $(btnCards).click();
+    }
+
+    @FindBy(css = "#aAddCard")
+    private WebElement btnAddCard;
+
+    public void clickAddCards(){
+        $(btnAddCard).click();
+    }
+
+
+    @FindBy(id = "tbNumber")
+    private  WebElement cardNumber;
+
+    public void typeInCardNumber(String value){
+        typeIn(value, cardNumber);
+    }
+    @FindBy(id = "tbCode")
+    private  WebElement cardCode;
+
+    public void typeInCardCode(String value){
+        typeIn(value, cardNumber);
+    }
+    @FindBy(id = "tbOwner")
+    private  WebElement cardOwner;
+
+    public void typeInCardOwner(String value){
+        typeIn(value, cardOwner);
+    }
+    @FindBy(id = "tbexpirationDate")
+    private  WebElement cardDate;
+
+    public void typeInCardDate(String value){
+        typeIn(value, cardDate);
+    }
+    @FindBy(id = "tbNickname")
+    private  WebElement cardNick;
+
+    public void typeInCardNick(String value){
+        typeIn(value, cardNick);
+    }
 }
 
 
