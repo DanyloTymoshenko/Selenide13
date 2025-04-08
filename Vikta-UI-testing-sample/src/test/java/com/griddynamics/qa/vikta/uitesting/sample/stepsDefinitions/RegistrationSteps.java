@@ -49,7 +49,7 @@ public class RegistrationSteps extends BaseSteps {
         page().typeInEmail(returnValue);
         break;
       case PASSWORD:
-        returnValue = "changeme";
+        returnValue = "123";
         page().typeInPassword(returnValue);
         break;
       default:

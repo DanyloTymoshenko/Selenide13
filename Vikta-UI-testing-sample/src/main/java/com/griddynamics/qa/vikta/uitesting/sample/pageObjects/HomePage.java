@@ -1,8 +1,10 @@
 package com.griddynamics.qa.vikta.uitesting.sample.pageObjects;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.back;
 
 import com.codeborne.selenide.Condition;
+import com.griddynamics.qa.vikta.uitesting.sample.auxiliary.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,298 +18,398 @@ import org.openqa.selenium.support.ui.Select;
  */
 public class HomePage extends BasePage {
 
-  //TODO: Add more.
+    //TODO: Add more.
 
-  @FindBy(css = "#aUsers")
-  private WebElement aUsers;
+    @FindBy(css = "#aUsers")
+    private WebElement aUsers;
 
-  @FindBy(xpath = "//*[@id=\"tbTerm\"]")
-  private WebElement tbTerm;
+    @FindBy(xpath = "//*[@id=\"tbTerm\"]")
+    private WebElement tbTerm;
 
-  @FindBy(id = "tSelectedCategoryTitle")
-  private WebElement tSelectedCategoryTitle;
+    @FindBy(id = "tSelectedCategoryTitle")
+    private WebElement tSelectedCategoryTitle;
 
-  @FindBy(xpath = "//*[@id=\"tbRatingFrom\"]")
-  private WebElement tbRatingFrom;
+    @FindBy(xpath = "//*[@id=\"tbRatingFrom\"]")
+    private WebElement tbRatingFrom;
 
-  @FindBy(xpath = "//*[@id=\"tbRatingTo\"]")
-  private WebElement tbRatingTo;
+    @FindBy(xpath = "//*[@id=\"tbRatingTo\"]")
+    private WebElement tbRatingTo;
 
-  @FindBy(xpath = "//*[@id=\"tbPriceFrom\"]")
-  private WebElement tbPriceFrom;
+    @FindBy(xpath = "//*[@id=\"tbPriceFrom\"]")
+    private WebElement tbPriceFrom;
 
-  @FindBy(xpath = "//*[@id=\"tbPriceTo\"]")
-  private WebElement tbPriceTo;
+    @FindBy(xpath = "//*[@id=\"tbPriceTo\"]")
+    private WebElement tbPriceTo;
 
-  @FindBy(id = "btnSearch")
-  private WebElement btnSearch;
+    @FindBy(id = "btnSearch")
+    private WebElement btnSearch;
 
-  @FindBy(id = "btnResetSearchCriteria")
-  private WebElement btnResetSearchCriteria;
+    @FindBy(id = "btnResetSearchCriteria")
+    private WebElement btnResetSearchCriteria;
 
-  // Side Categories
+    // Side Categories
 
-  @FindBy(id = "category1")
-  private WebElement catEmpty;
+    @FindBy(id = "category1")
+    private WebElement catEmpty;
 
-  @FindBy(id = "category2")
-  private WebElement catFull;
+    @FindBy(id = "category2")
+    private WebElement catFull;
 
-  @FindBy(id = "category3")
-  private WebElement catMyth;
+    @FindBy(id = "category3")
+    private WebElement catMyth;
 
-  @FindBy(id = "category4")
-  private WebElement catCity;
+    @FindBy(id = "category4")
+    private WebElement catCity;
 
-  @FindBy(id = "category5")
-  private WebElement catStreet;
+    @FindBy(id = "category5")
+    private WebElement catStreet;
 
-  @FindBy(id = "category6")
-  private WebElement catTech;
+    @FindBy(id = "category6")
+    private WebElement catTech;
 
-  @FindBy(id = "category7")
-  private WebElement catWhoUN;
+    @FindBy(id = "category7")
+    private WebElement catWhoUN;
 
-  @FindBy(id = "category8")
-  private WebElement catVitamin;
+    @FindBy(id = "category8")
+    private WebElement catGrindelia;
 
-  @FindBy(id = "category9")
-  private WebElement catFiction;
+    @FindBy(id = "category9")
+    private WebElement catTextBook;
 
-  @FindBy(id = "category10")
-  private WebElement catElectronic;
+    @FindBy(id = "category10")
+    private WebElement catPop;
 
-  @FindBy(id = "category11")
-  private WebElement catSales;
+    @FindBy(id = "category11")
+    private WebElement catManufacturing;
 
-  @FindBy(id = "category12")
-  private WebElement catCymric;
+    @FindBy(id = "category12")
+    private WebElement catOjos;
 
-  @FindBy(id = "category13")
-  private WebElement catBouvier;
+    @FindBy(id = "category13")
+    private WebElement catCurlyRetriever;
 
-  @FindBy(xpath = "//*[@id=\"tbRatingFrom\"]//div[2]/div[2]")
-  private WebElement btnRatingUp, btnRatingDown;
+    @FindBy(id = "category13")
+    private WebElement catTestTitle;
 
-  public void clickAdminUsers() {
-    $(aUsers).click();
-  }
+    @FindBy(xpath = "//*[@id=\"tbRatingFrom\"]//div[2]/div[2]")
+    private WebElement btnRatingUp, btnRatingDown;
 
-  public void InputSearchImages(String SearchImg) {
-    tbTerm.sendKeys(SearchImg);
-  }
+    public void clickAdminUsers() {
+        $(aUsers).click();
+    }
 
-  public void InputRatingFrom(String RatingFrom) {
-    tbRatingFrom.sendKeys(RatingFrom);
-  }
+    public void InputSearchImages(String SearchImg) {
+        tbTerm.sendKeys(SearchImg);
+    }
 
-  public void InputRatingTo(String RatingTo) {
-    tbRatingTo.sendKeys(RatingTo);
-  }
+    public void InputRatingFrom(String RatingFrom) {
+        tbRatingFrom.sendKeys(RatingFrom);
+    }
 
-  WebDriver driver;
+    public void InputRatingTo(String RatingTo) {
+        tbRatingTo.sendKeys(RatingTo);
+    }
 
-  public void PageClass(WebDriver driver) {
-    this.driver = driver;
-    PageFactory.initElements(driver, this);
-  }
+    WebDriver driver;
 
-  public void PressRatingButtonUp() {
-    Actions actions = new Actions(driver);
-    //actions.moveToElement(tbRatingFrom, tbPriceFrom.getSize().getHeight() - 13, 13).click().perform();
+    public void PageClass(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
 
-    actions.moveToElement(btnRatingUp).moveByOffset(7, 12).click();
-  }
+    public void PressRatingButtonUp() {
+        Actions actions = new Actions(driver);
+        //actions.moveToElement(tbRatingFrom, tbPriceFrom.getSize().getHeight() - 13, 13).click().perform();
 
-  public void PressRatingButtonDown() {
-    Actions actions = new Actions(driver);
+        actions.moveToElement(btnRatingUp).moveByOffset(7, 12).click();
+    }
 
-    actions.moveToElement(btnRatingDown).moveByOffset(7, 8).click();
-  }
+    public void PressRatingButtonDown() {
+        Actions actions = new Actions(driver);
 
-  public void InputPriceFrom(String PriceFrom) {
-    tbPriceFrom.sendKeys(PriceFrom);
-  }
+        actions.moveToElement(btnRatingDown).moveByOffset(7, 8).click();
+    }
 
-  public void InputPriceTo(String PriceTo) {
-    tbPriceTo.sendKeys(PriceTo);
-  }
+    public void InputPriceFrom(String PriceFrom) {
+        tbPriceFrom.sendKeys(PriceFrom);
+    }
 
-  public void PressSearch() {
-    btnSearch.click();
-  }
+    public void InputPriceTo(String PriceTo) {
+        tbPriceTo.sendKeys(PriceTo);
+    }
 
-  public void catEmpty() {
-    catEmpty.click();
-  }
+    public void PressSearch() {
+        btnSearch.click();
+    }
 
-  public void catFull() {
-    catFull.click();
-  }
+    public void catEmpty() {
+        catEmpty.click();
+    }
 
-  public void catMyth() {
-    catMyth.click();
-  }
+    public void catFull() {
+        catFull.click();
+    }
 
-  public void catCity() {
-    catCity.click();
-  }
+    public void catMyth() {
+        catMyth.click();
+    }
 
-  public void catStreet() {
-    catStreet.click();
-  }
+    public void catCity() {
+        catCity.click();
+    }
 
-  public void catTech() {
-    catTech.click();
-  }
+    public void catStreet() {
+        catStreet.click();
+    }
 
-  public void catWhoUN() {
-    catWhoUN.click();
-  }
+    public void catTech() {
+        catTech.click();
+    }
 
-  public void catVitamin() {
-    catVitamin.click();
-  }
+    public void catWhoUN() {
+        catWhoUN.click();
+    }
 
-  public void catFiction() {
-    catFiction.click();
-  }
+    public void catGrindelia() {
+        catGrindelia.click();
+    }
 
-  public void catElectronic() {
-    catElectronic.click();
-  }
+    public void cattextBook() {
+        catTextBook.click();
+    }
 
-  public void catSales() {
-    catSales.click();
-  }
+    public void catPop() {
+        catPop.click();
+    }
 
-  public void catCymric() {
-    catCymric.click();
-  }
+    public void catManufacturing() {
+        catManufacturing.click();
+    }
 
-  public void catBouvier() {
-    catBouvier.click();
-  }
+    public void catOjos() {
+        catOjos.click();
+    }
 
-  /// ADMIN EXTENSION
+    public void catCurly() {
+        catCurlyRetriever.click();
+    }
 
-  @FindBy(id = "btnSave")
-  private WebElement btnSave;
+    public void catTest() {
+        catTestTitle.click();
+    }
 
-  public void clickSave() {
-    btnSave.click();
-  }
+    /// ADMIN EXTENSION
 
-  @FindBy(id = "tbPathToAvatarImage")
-  private WebElement tbPathToAvatarImage;
+    @FindBy(id = "btnSave")
+    private WebElement btnSave;
 
-  public void typeInAvatar(String value) {
-    tbPathToAvatarImage.clear();
-    typeIn(value, tbPathToAvatarImage);
-  }
+    public void clickSave() {
+        btnSave.click();
+    }
 
-  private void typeIn(String value, WebElement targetElement) {
-    targetElement.clear();
-    targetElement.sendKeys(value);
-  }
+    @FindBy(id = "tbPathToAvatarImage")
+    private WebElement tbPathToAvatarImage;
 
-  @FindBy(css = "#aAddUser")
-  private WebElement aAddUser;
+    public void typeInAvatar(String value) {
+        tbPathToAvatarImage.clear();
+        typeIn(value, tbPathToAvatarImage);
+    }
 
-  public void clickAddUser() {
-    $(aAddUser).click();
-  }
+    private void typeIn(String value, WebElement targetElement) {
+        targetElement.clear();
+        targetElement.sendKeys(value);
+    }
 
-  @FindBy(id = "btnReset")
-  private WebElement btnReset;
+    @FindBy(css = "#aAddUser")
+    private WebElement aAddUser;
 
-  public void clickReset() {
-    btnReset.click();
-  }
+    public void clickAddUser() {
+        $(aAddUser).click();
+    }
 
-  /// IMAGES
-  @FindBy(css = "#aImages")
-  private WebElement aImage;
+    @FindBy(css = "#btnReset")
+    private WebElement btnReset;
 
-  public void clickImages() {
-    $(aImage).shouldBe(Condition.visible).click();
-  }
+    public void clickReset() {
+        $(btnReset).click();
+    }
 
-  @FindBy(id = "tbUEL")
-  private WebElement imageURL;
+    /// IMAGES
+    @FindBy(css = "#aImages")
+    private WebElement aImage;
 
-  public void typeInImageUrl(String value) {
-    imageURL.clear();
-    typeIn(value, imageURL);
-  }
+    public void clickImages() {
+        $(aImage).shouldBe(Condition.visible).click();
+    }
 
-  @FindBy(id = "tbTitle")
-  private WebElement imageTitle;
+    @FindBy(id = "tbUEL")
+    private WebElement imageURL;
 
-  public void typeInImageTitle(String value) {
-    imageTitle.clear();
-    typeIn(value, imageTitle);
-  }
+    public void typeInImageUrl(String value) {
+        imageURL.clear();
+        typeIn(value, imageURL);
+    }
 
-  @FindBy(id = "tbDescription")
-  private WebElement imageDesctiption;
+    @FindBy(id = "tbTitle")
+    private WebElement imageTitle;
 
-  public void typeInImageDescription(String value) {
-    imageDesctiption.clear();
-    typeIn(value, imageDesctiption);
-  }
+    public void typeInImageTitle(String value) {
+        imageTitle.clear();
+        typeIn(value, imageTitle);
+    }
 
-  @FindBy(css = "#tbAuthor")
-  private WebElement imageAuthor;
+    @FindBy(id = "tbDescription")
+    private WebElement imageDescription;
 
-  public void typeInImageAuthor(String value) {
-    $(imageAuthor).setValue(value);
-    // typeIn(value, imageAuthor);
-  }
+    public void typeInImageDescription(String value) {
+        imageDescription.clear();
+        typeIn(value, imageDescription);
+    }
 
-  @FindBy(id = "tbPrice")
-  private WebElement imagePrice;
+    @FindBy(css = "#tbAuthor")
+    private WebElement imageAuthor;
 
-  public void typeInImagePrice(String value) {
-    imagePrice.clear();
-    typeIn(value, imagePrice);
-  }
+    public void typeInImageAuthor(String value) {
+        $(imageAuthor).setValue(value);
+        // typeIn(value, imageAuthor);
+    }
 
-  @FindBy(id = "tbTags")
-  private WebElement imageTags;
+    @FindBy(id = "tbPrice")
+    private WebElement imagePrice;
 
-  public void typeInImageTags(String value) {
-    imageTags.clear();
-    typeIn(value, imageTags);
-  }
+    public void typeInImagePrice(String value) {
+        imagePrice.clear();
+        typeIn(value, imagePrice);
+    }
 
-  @FindBy(id = "rating")
-  private WebElement imageRatingSlider;
+    @FindBy(id = "tbTags")
+    private WebElement imageTags;
 
-  public void ChangeRating(int value) {
-    $("#rating").setValue(String.valueOf(value));
-  }
+    public void typeInImageTags(String value) {
+        imageTags.clear();
+        typeIn(value, imageTags);
+    }
 
-  @FindBy(id = "slctCategories")
-  private WebElement imageCategoriesListBox;
+    @FindBy(id = "rating")
+    private WebElement imageRatingSlider;
 
-  public void SetCategory(String categoryName) {
-    Select select = new Select(imageCategoriesListBox);
+    public void ChangeRating(int value) {
+        $("#rating").setValue(String.valueOf(value));
+    }
 
-    select.selectByVisibleText(categoryName);
-  }
+    @FindBy(id = "slctCategories")
+    private WebElement imageCategoriesListBox;
 
-  @FindBy(id = "aAddImage")
-  private WebElement AddImagePage;
+    public void SetCategory(String categoryName) {
+        Select select = new Select(imageCategoriesListBox);
 
-  public void clickAddImage() {
-    AddImagePage.click();
-  }
+        select.selectByVisibleText(categoryName);
+    }
 
-  @FindBy(xpath = "//*[@id=\"btnResetSearchCriteria\"]")
-  private WebElement ResetButton;
+    @FindBy(id = "aAddImage")
+    private WebElement AddImagePage;
 
-  public void PressReset() {
-    ResetButton.click();
-  }
+    public void clickAddImage() {
+        AddImagePage.click();
+    }
+
+    @FindBy(xpath = "//*[@id=\"btnResetSearchCriteria\"]")
+    private WebElement ResetButton;
+
+    public void PressReset() {
+        ResetButton.click();
+    }
+
+    /// CATEGORIES
+
+    @FindBy(css = "#aCategories")
+    private WebElement btnCategories;
+
+    public void clickCategories() {
+        btnCategories.click();
+    }
+
+
+    @FindBy(css = "#aAddCategory")
+    private WebElement btnAddCategory;
+
+    public void clickAddCategory() {
+        $(btnAddCategory).click();
+    }
+
+    @FindBy(id = "tbPathToCatImage")
+    private WebElement PathToCatImage;
+
+    public void typeInPathToCatImage(String value) {
+        typeIn(value, PathToCatImage);
+
+    }
+
+
+    /// ADDRESSES
+
+    @FindBy(css = "#aAddresses")
+    private WebElement btnAddresses;
+
+    public void clickAddresses(){
+        $(btnAddresses).click();
+    }
+
+    @FindBy(css = "#aAddAddress")
+    private WebElement btnAddAddress;
+
+    public void clickAddAddresses(){
+        $(btnAddAddress).click();
+    }
+
+    @FindBy(id = "tbStreet")
+    private WebElement StreetField;
+
+    public void typeInStreet(String value){
+        typeIn(value, StreetField);
+    }
+
+    @FindBy(id = "tbStreetAdditional")
+    private WebElement StreetAddField;
+
+    public void typeInStreetAdd(String value){
+        typeIn(value, StreetAddField);
+    }
+
+    @FindBy(id = "tbCityName")
+    private WebElement CityName;
+
+    public void typeInCity(String value){
+        typeIn(value, CityName);
+    }
+
+    @FindBy(id = "tbRegionName")
+    private WebElement RegionName;
+
+    public void typeInRegionName(String value){
+        typeIn(value, RegionName);
+    }
+
+    @FindBy(id = "tbPostalCode")
+    private WebElement PostalCode;
+
+    public void typeInPostalCode(String value){
+        typeIn(value, PostalCode);
+    }
+    @FindBy(id = "tbAddressNickname")
+    private WebElement AddressNickname;
+
+    public void typeInAddressNickname(String value){
+        typeIn(value, AddressNickname);
+    }
+
+    @FindBy(css = "#btnDelete")
+    private WebElement btnDeleteAddress;
+
+    public void DeleteAddress(){
+        $(btnDeleteAddress).click();
+    }
 }
+
+
+
