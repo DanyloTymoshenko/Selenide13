@@ -116,4 +116,46 @@ public class AdminTest extends BaseTest {
     adminSteps.editImage();
     adminSteps.clickSave();
   }
+
+  @Test
+  public void testAdminGetCatTable() {
+    loginSteps.openLoginPage();
+
+
+    loginSteps.loginAsAdmin();
+
+    System.out.println("START ADMIN CAT TEST");
+    adminSteps.getCategoryPage();
+
+    System.out.println("FIND ALL CONTENT IN A ROW");
+
+    adminSteps.writeCatTableRowContentById();
+    // System.out.println("DELETE ROW");
+    //adminSteps.deleteCatRowById();
+  }
+
+  @Test
+  public void AddCat() {
+    loginSteps.openLoginPage();
+    loginSteps.loginAsAdmin();
+    adminSteps.getAddCategoryPage();
+    adminSteps.ImageAddTitle();
+    adminSteps.editCat();
+    adminSteps.clickReset();
+    adminSteps.ImageAddTitle();
+    adminSteps.editCat();
+    adminSteps.clickSave();
+  }
+  @Test
+  public void testAdminEditCat() {
+    loginSteps.openLoginPage();
+    loginSteps.loginAsAdmin();
+    System.out.println("CATEGORY EDIT TEST");
+    adminSteps.getCategoryPage();
+    adminSteps.clickCatEditLink();
+
+    adminSteps.editCat();
+
+    adminSteps.clickSave();
+  }
 }

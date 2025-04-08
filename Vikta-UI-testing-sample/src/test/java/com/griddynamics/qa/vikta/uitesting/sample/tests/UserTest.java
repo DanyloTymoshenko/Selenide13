@@ -14,28 +14,61 @@ import org.testng.annotations.Test;
 
 public class UserTest extends BaseTest {
 
-  private String name = "qq";
-  private String password = "123";
+    private String name = "qq";
+    private String password = "changeme";
 
-  @Test
-  public void testImageSearch() {
-    loginSteps.openLoginPage();
-    loginSteps.loginAsRegularUser();
+    @Test
+    public void testImageSearch() {
+        loginSteps.openLoginPage();
+        loginSteps.loginAsRegularUser();
 
-    homePageSteps.typeInSearchImage();
-    homePageSteps.typeInPriceFrom();
-    homePageSteps.typeInPriceTo();
-    homePageSteps.typeInRatingFrom();
-    homePageSteps.typeInRatingTo();
+        homePageSteps.typeInSearchImage();
+        homePageSteps.typeInPriceFrom();
+        homePageSteps.typeInPriceTo();
+        homePageSteps.typeInRatingFrom();
+        homePageSteps.typeInRatingTo();
 
-    homePageSteps.PressReset();
+        homePageSteps.PressReset();
 
-    homePageSteps.typeInSearchImage();
-    homePageSteps.typeInPriceFrom();
-    homePageSteps.typeInPriceTo();
-    homePageSteps.typeInRatingFrom();
-    homePageSteps.typeInRatingTo();
+        homePageSteps.typeInSearchImage();
+        homePageSteps.typeInPriceFrom();
+        homePageSteps.typeInPriceTo();
+        homePageSteps.typeInRatingFrom();
+        homePageSteps.typeInRatingTo();
 
-    homePageSteps.PressSearch();
-  }
+        homePageSteps.PressSearch();
+    }
+
+    @Test
+    public void testCategorySearch() {
+        homePageSteps.loopThroughCategories();
+    }
+
+    @Test
+    public void testEditAddress() {
+        loginSteps.openLoginPage();
+        loginSteps.loginAsRegularUser();
+
+        homePageSteps.getAddressesPage();
+        homePageSteps.writeAddressesTableRowContentById();
+        homePageSteps.clickAddressEditLink();
+        homePageSteps.editAddress();
+        //homePageSteps.deleteAddress();
+        //homePageSteps.editAddress();
+        adminSteps.clickSave();
+    }
+
+    @Test
+    public void testAddAddress() {
+        loginSteps.openLoginPage();
+        loginSteps.loginAsRegularUser();
+
+        homePageSteps.getAddAddressesPage();
+        homePageSteps.editAddress();
+        adminSteps.clickReset();
+        homePageSteps.editAddress();
+        //homePageSteps.deleteAddress();
+        //homePageSteps.editAddress();
+        adminSteps.clickSave();
+    }
 }
