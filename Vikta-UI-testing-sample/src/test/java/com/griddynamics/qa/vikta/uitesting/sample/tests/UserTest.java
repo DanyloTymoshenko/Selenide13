@@ -71,4 +71,31 @@ public class UserTest extends BaseTest {
         //homePageSteps.editAddress();
         adminSteps.clickSave();
     }
+
+    @Test
+    public void testEditCard() {
+        loginSteps.openLoginPage();
+        loginSteps.loginAsRegularUser();
+
+        homePageSteps.getcardPage();
+        homePageSteps.writeCardTableRowContentById();
+        homePageSteps.clickCardEditLink();
+        homePageSteps.editCard();
+        //homePageSteps.deleteCard();
+        adminSteps.clickSave();
+    }
+
+    @Test
+    public void testAddCard() {
+        loginSteps.openLoginPage();
+        loginSteps.loginAsRegularUser();
+
+        homePageSteps.getAddCardPage();
+        homePageSteps.editCard();
+        adminSteps.clickReset();
+        homePageSteps.editCard();
+        adminSteps.clickSave();
+    }
+
+
 }
