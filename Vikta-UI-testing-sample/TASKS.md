@@ -25,7 +25,7 @@ mvn clean test -Dcucumber.options="--tags @signup"
     - Image search; // done
     - Category management;//done
     - Category search;//done
-    - Purchasing;
+    - Purchasing; // done
     - Searching; //same as image search?
     - Payment methods; //done
     - Addresses. //done
