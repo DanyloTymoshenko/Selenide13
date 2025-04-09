@@ -121,7 +121,6 @@ public class AdminTest extends BaseTest {
   public void testAdminGetCatTable() {
     loginSteps.openLoginPage();
 
-
     loginSteps.loginAsAdmin();
 
     System.out.println("START ADMIN CAT TEST");
@@ -146,6 +145,7 @@ public class AdminTest extends BaseTest {
     adminSteps.editCat();
     adminSteps.clickSave();
   }
+
   @Test
   public void testAdminEditCat() {
     loginSteps.openLoginPage();

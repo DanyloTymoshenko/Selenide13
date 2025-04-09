@@ -1,5 +1,7 @@
 package com.griddynamics.qa.vikta.uitesting.sample.pageObjects;
 
+import static com.codeborne.selenide.Selenide.$;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -8,7 +10,7 @@ import org.openqa.selenium.support.FindBy;
  */
 public class LoginPage {
 
-  @FindBy(id = "tfLoginname")
+  @FindBy(css = "#tfLoginname")
   private WebElement txtLoginname;
 
   @FindBy(id = "tfPassword")
@@ -37,9 +39,9 @@ public class LoginPage {
   }
 
   public void tryLogin(String username, String password) {
-    txtLoginname.sendKeys(username);
-    txtPassword.clear();
-    txtPassword.sendKeys(password);
+    $(txtLoginname).sendKeys(username);
+    $(txtPassword).clear();
+    $(txtPassword).sendKeys(password);
 
     btnSubmitLogin.click();
   }
