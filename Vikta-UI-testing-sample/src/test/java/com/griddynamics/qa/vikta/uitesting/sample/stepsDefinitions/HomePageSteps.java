@@ -5,7 +5,7 @@ import static com.codeborne.selenide.Selenide.*;
 import com.codeborne.selenide.*;
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.HomePage;
 import io.qameta.allure.Step;
-import java.time.Duration;
+
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -55,7 +55,7 @@ public class HomePageSteps extends BaseSteps {
 
   @Step
   public void PressReset() {
-    page().PressReset();
+    page().pressReset();
   }
 
   @Step
@@ -115,7 +115,7 @@ public class HomePageSteps extends BaseSteps {
 
   @Step
   public void deleteAddress() {
-    page().DeleteAddress();
+    page().deleteAddress();
   }
 
   /// CARDS
@@ -133,7 +133,7 @@ public class HomePageSteps extends BaseSteps {
 
   @Step
   public void clickCardEditLink() {
-    $(By.cssSelector("#trCard_1234212112211211 > td:nth-child(2) > a")).click();
+    $("#trCard_1234212112211211 > td:nth-child(2) > a").click();
   }
 
   @Step

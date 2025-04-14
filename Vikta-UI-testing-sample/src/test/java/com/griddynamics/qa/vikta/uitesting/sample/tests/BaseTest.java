@@ -97,6 +97,6 @@ public class BaseTest {
 
   @AfterClass
   void tearDownClass() {
-    driverManager.quite();
+    driverManager.quit();
   }
 }
