@@ -56,8 +56,6 @@ public final class DriverManager {
         throw new UnsupportedOperationException("Unsupported WebDriver type: " + driverType);
     }
 
-    //driver.manage().window().maximize();
-
     Configuration.browser = driverType.name().toLowerCase();
     Configuration.startMaximized = true;
     Configuration.timeout = properties.waitTimeout() * THOUSAND;
@@ -67,10 +65,11 @@ public final class DriverManager {
     threadWebDriver.set(driver);
   }
 
-  public void quite() {
+  public void quit() {
     if (Objects.nonNull(threadWebDriver.get())) {
       log.info("Shutting down the driver.");
       threadWebDriver.get().quit();
+      threadWebDriver.remove();
     }
   }
 
@@ -112,7 +111,7 @@ public final class DriverManager {
     ops.addArguments("--remote-allow-origins=*"); // Solution?
     ops.addArguments("test-type");
     ops.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.ACCEPT);
-    io.github.bonigarcia.wdm.WebDriverManager.getInstance(WebDriverType.CHROME.name()).setup();
+    WebDriverManager.getInstance(WebDriverType.CHROME.name()).setup();
 
     return new ChromeDriver(ops);
   }

@@ -1,9 +1,14 @@
 package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 
+import static com.codeborne.selenide.Condition.exist;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.error.ShouldBe.shouldBe;
 
 import com.codeborne.selenide.WebDriverRunner;
 import com.github.javafaker.Faker; // Використовуємо JavaFaker для генерації випадкових даних
+import com.griddynamics.qa.vikta.uitesting.sample.config.DataProvider;
 import com.griddynamics.qa.vikta.uitesting.sample.config.TestDataAndProperties;
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.BasePage;
 import java.util.Objects;
@@ -14,13 +19,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- Base class to contain common auxiliary methods for step definitions.
+ * Base class to contain common auxiliary methods for step definitions.
  */
 abstract class BaseSteps {
 
   private WebDriver driver;
   private WebDriverWait wait;
-  private static final Faker faker = new Faker(); // Додаємо Faker для генерації даних
+  private static final Faker faker = new Faker();
 
   BaseSteps(WebDriver driver) {
     this.driver = driver;
@@ -88,6 +93,8 @@ abstract class BaseSteps {
         return "admin";
       }
 
+      TestDataAndProperties data = DataProvider.get();
+
       @Override
       public String adminPassword() {
         return "123qweadmin";
@@ -116,7 +123,8 @@ abstract class BaseSteps {
 
   void verifyCurrentPageIsHomePageForTheUser(String username) {
     BasePage currentPage = getPage(BasePage.class);
-    getWait().until(ExpectedConditions.visibilityOf(currentPage.getLoggedInName()));
+    //getWait().until(ExpectedConditions.visibilityOf(currentPage.getLoggedInName()));
+    //$(currentPage.getLoggedInName()).should(exist).shouldBe(visible);
     assertCurrentPageUrl(getData().baseUrl(), "Home page was expected to be the current one.");
     assertThat(currentPage.getCurrentUserName())
       .as("Unexpected current user's name displayed. Expected: %s", username)

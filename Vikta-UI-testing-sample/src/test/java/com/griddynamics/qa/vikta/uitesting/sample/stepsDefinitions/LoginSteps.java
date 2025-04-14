@@ -1,5 +1,8 @@
 package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 
+import static com.codeborne.selenide.Condition.exist;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.shouldHaveThrown;
 
@@ -55,7 +58,8 @@ public class LoginSteps extends BaseSteps {
 
   @Step
   public void verifyErrorMessage(String text) {
-    getWait().until(ExpectedConditions.visibilityOf(page().getErrorWebElement()));
+    //getWait().until(ExpectedConditions.visibilityOf(page().getErrorWebElement()));
+    $(page().getErrorWebElement()).should(exist).shouldBe(visible);
     // Have a look at https://assertj.github.io/doc/
     assertThat(page().getErrorMessage().trim())
       .as("Error message was nor shown or had unexpected content.")

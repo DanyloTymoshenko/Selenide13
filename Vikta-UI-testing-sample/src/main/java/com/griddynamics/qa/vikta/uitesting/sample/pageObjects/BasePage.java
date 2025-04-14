@@ -1,5 +1,8 @@
 package com.griddynamics.qa.vikta.uitesting.sample.pageObjects;
 
+import static com.codeborne.selenide.Selenide.$;
+
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -18,106 +21,105 @@ public class BasePage {
 
   // HEADER
 
-  @FindBy(id = "sploggedInName")
-  private WebElement sploggedInName;
+  //@FindBy(id = "sploggedInName")
+  private SelenideElement loggedInName() {
+    return $("#sploggedInName");
+  }
 
   @FindBy(id = "aLogoutTop")
-  private WebElement aLogoutTop;
+  private WebElement LogoutTopLink;
 
   @FindBy(id = "aHome")
-  private WebElement aHome;
+  private WebElement HomeLink;
 
   @FindBy(id = "aAddresses")
-  private WebElement aAddresses;
+  private WebElement AddressesLink;
 
   @FindBy(id = "aAddAddress")
-  private WebElement aAddAddress;
+  private WebElement AddAddressLink;
 
   @FindBy(id = "aCards")
-  private WebElement aCards;
+  private WebElement CardsLink;
 
   @FindBy(id = "aAddCard")
-  private WebElement aAddCard;
+  private WebElement AddCardLink;
 
   @FindBy(id = "aEditProfile")
-  private WebElement aEditProfile;
+  private WebElement EditProfileLink;
 
-  @FindBy(xpath = "/html/body/main/div[1]/nav/div/div[1]/a")
-  private WebElement navbarBrandV;
+  @FindBy(css = "body > main > div:nth-child(1) > nav > div > div.navbar-header > a")
+  private WebElement navBarBrandV;
 
-  @FindBy(xpath = "//*[@id=\"navbar\"]/ul[2]/li/span/span[2]")
+  @FindBy(css = "#navbar > ul.nav.navbar-nav.navbar-right > li > span > span:nth-child(2)")
   private WebElement userRoleTop;
 
   // FOOTER
 
-  @FindBy(xpath = "/html/body/main/div[3]/div/footer/a")
+  @FindBy(css = "body > main > div.footer > div > footer > a")
   private WebElement GridDynamicsLink;
 
-  @FindBy(xpath = "/html/body/main/div[3]/div/footer/text()")
-  private WebElement yearPublished;
-
-  @FindBy(xpath = "/html/body/main/div[3]/div/footer/span/span[1]")
+  @FindBy(css = "body > main > div.footer > div > footer > span > span:nth-child(1)")
   private WebElement loggedUserNameBottom;
 
-  @FindBy(xpath = "/html/body/main/div[3]/div/footer/span/span[2]")
+  @FindBy(css = "body > main > div.footer > div > footer > span > span:nth-child(2)")
   private WebElement userRoleBottom;
 
   @FindBy(id = "aLogoutBottom")
-  private WebElement aLogoutBottom;
+  private WebElement LogoutBottomLink;
 
   public String getCurrentUserName() {
-    return sploggedInName.getText();
+    return loggedInName().getText();
   }
 
-  public WebElement getLoggedInName() {
-    return sploggedInName;
+  public String getLoggedInName() {
+    return loggedInName().getText();
   }
 
-  public void clicknavbarBrandV() {
-    navbarBrandV.click();
+  public void clickNavBarBrandV() {
+    $(navBarBrandV).click();
   }
 
-  public void clickaHome() {
-    aHome.click();
+  public void clickHomeLink() {
+    $(HomeLink).click();
   }
 
-  public void clickaAddresses() {
-    aAddresses.click();
+  public void clickAddressesLink() {
+    $(AddressesLink).click();
   }
 
-  public void clickaAddAddress() {
-    aAddAddress.click();
+  public void clickAddAddressLink() {
+    $(AddAddressLink).click();
   }
 
-  public void clickaCards() {
-    aCards.click();
+  public void clickCardsLink() {
+    $(CardsLink).click();
   }
 
-  public void clickaAddCard() {
-    aAddCard.click();
+  public void clickAddCardLink() {
+    $(AddCardLink).click();
   }
 
-  public void clickaEditProfile() {
-    aEditProfile.click();
+  public void clickEditProfileLink() {
+    $(EditProfileLink).click();
   }
 
   public void clickLogoutTop() {
-    aLogoutTop.click();
+    $(LogoutTopLink).click();
   }
 
   public void clickGridDynamicsLink() {
-    GridDynamicsLink.click();
+    $(GridDynamicsLink).click();
   }
 
-  public WebElement loggedUserNameBottom() {
-    return loggedUserNameBottom;
+  public String getloggedUserNameBottom() {
+    return $(loggedUserNameBottom).getText();
   }
 
   public void clickLogoutBottom() {
-    aLogoutBottom.click();
+    LogoutBottomLink.click();
   }
 
   public String getCurrentUserRole() {
-    return userRoleBottom.getText().trim();
+    return $(userRoleBottom).getText().trim();
   }
 }

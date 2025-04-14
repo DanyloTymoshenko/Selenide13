@@ -1,11 +1,11 @@
 package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 
+import static com.codeborne.selenide.Condition.exist;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.codeborne.selenide.CollectionCondition;
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.HomePage;
 import io.qameta.allure.Step;
@@ -39,15 +39,13 @@ public class AdminSteps extends BaseSteps {
   String imageId = "#trImage_19";
 
   @Step
-  public void getUser() {
+  public void hoverOverUserRole() {
     $(dynamicId).hover();
   }
 
   @Step
   public String getTableRowContentById() {
-    /*if(!$("#"+dynamicId).exists()){throw new NoSuchElementException("ELEMENT "+ dynamicId +" is not FOUND");
-    }*/
-    return $(By.id(dynamicId)).should(Condition.exist).shouldBe(Condition.visible).getText();
+    return $(By.id(dynamicId)).should(exist).shouldBe(visible).getText();
   }
 
   @Step
@@ -65,7 +63,7 @@ public class AdminSteps extends BaseSteps {
   public void deleteRowById() {
     SelenideElement deleteButton = $("#" + dynamicId + " > td:nth-child(7) > a"); //#trUser_qq > td:nth-child(7) > a
 
-    deleteButton.shouldBe(Condition.visible, Duration.ofSeconds(5)).click();
+    deleteButton.shouldBe(visible, Duration.ofSeconds(5)).click();
     System.out.println("ROw" + dynamicId + " has been deleted");
   }
 
@@ -105,7 +103,7 @@ public class AdminSteps extends BaseSteps {
 
   @Step
   public String getImageTableRowContentById() {
-    return $(By.cssSelector(imageId)).should(Condition.exist).shouldBe(Condition.visible).getText();
+    return $(By.cssSelector(imageId)).should(exist).shouldBe(visible).getText();
   }
 
   @Step
@@ -123,7 +121,7 @@ public class AdminSteps extends BaseSteps {
   public void deleteImageRowById() {
     SelenideElement deleteButton = $(imageId + " > td:nth-child(10)");
 
-    deleteButton.shouldBe(Condition.visible, Duration.ofSeconds(5)).click();
+    deleteButton.shouldBe(visible, Duration.ofSeconds(5)).click();
     System.out.println("ROw" + imageId + " has been deleted");
   }
 
@@ -138,8 +136,8 @@ public class AdminSteps extends BaseSteps {
       .typeInImageUrl(
         "https://www.google.com/imgres?q=owl%20photo&imgurl=https%3A%2F%2Fwww.akronzoo.org%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Funcropped_xl%2Fpublic%2F2022-05%2FSnowy-owl-Frost.png%3Fitok%3Dbw8666Ly&imgrefurl=https%3A%2F%2Fwww.akronzoo.org%2Fbirds%2Fsnowy-owl&docid=HJnJFSxsErnqWM&tbnid=eAY5ZvktTqj35M&vet=12ahUKEwiw_5CizriMAxUkxAIHHQdkEocQM3oFCIUBEAA..i&w=1600&h=1600&hcb=2&ved=2ahUKEwiw_5CizriMAxUkxAIHHQdkEocQM3oFCIUBEAA"
       );
-    page().ChangeRating(3);
-    page().SetCategory("Pop");
+    page().changeRating(3);
+    page().setCategory("Pop");
   }
 
   @Step
@@ -171,14 +169,14 @@ public class AdminSteps extends BaseSteps {
 
   @Step
   public String getCatTableRowContentById() {
-    return $(By.cssSelector(catId)).should(Condition.exist).shouldBe(Condition.visible).getText(); //
+    return $(By.cssSelector(catId)).should(exist).shouldBe(visible).getText(); //
   }
 
   @Step
   public void deleteCatRowById() {
     SelenideElement deleteButton = $("#trCat_3 > td:nth-child(7) > a");
 
-    deleteButton.shouldBe(Condition.visible, Duration.ofSeconds(5)).click();
+    deleteButton.shouldBe(visible, Duration.ofSeconds(5)).click();
     System.out.println("ROw" + catId + " has been deleted");
   }
 
@@ -203,7 +201,7 @@ public class AdminSteps extends BaseSteps {
   public void openImage() {
     SelenideElement imageHref = $("#trCat_3 > td:nth-child(6) > a");
 
-    imageHref.shouldBe(Condition.visible, Duration.ofSeconds(5)).click();
+    imageHref.shouldBe(visible, Duration.ofSeconds(5)).click();
     back();
   }
 }
