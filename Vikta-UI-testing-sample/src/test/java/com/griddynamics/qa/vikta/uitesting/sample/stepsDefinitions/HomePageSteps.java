@@ -5,7 +5,6 @@ import static com.codeborne.selenide.Selenide.*;
 import com.codeborne.selenide.*;
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.HomePage;
 import io.qameta.allure.Step;
-
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

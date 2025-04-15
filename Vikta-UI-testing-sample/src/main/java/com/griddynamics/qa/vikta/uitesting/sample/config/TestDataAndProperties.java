@@ -11,21 +11,26 @@ public interface TestDataAndProperties extends Config {
   int pageLoadTimeout();
 
   int waitTimeout();
+
   String baseHost();
+
   String basePort();
+
   String baseUrl();
 
   String loginPageUrl();
+
   String registrationPageUrl();
 
   String imagesPageUrl();
 
+  String usersPageUrl();
+
   String adminName();
+
   String adminPassword();
 
   String userName();
-  String userPassword();
 
-  String usersPageUrl();
-  //String addImageUrl();
+  String userPassword();
 }

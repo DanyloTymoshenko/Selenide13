@@ -28,8 +28,8 @@ public class LoginSteps extends BaseSteps {
 
   @Step
   public void openLoginPage() {
-    System.out.println("NAVIGATION TO: " + getData().loginPageUrl());
-    getDriver().get(getData().loginPageUrl());
+    System.out.println("NAVIGATION TO: " + data.loginPageUrl());
+    getDriver().get(data.loginPageUrl());
   }
 
   @Step
@@ -39,22 +39,22 @@ public class LoginSteps extends BaseSteps {
 
   @Step
   public void loginAsRegularUser() {
-    page().login(getData().userName(), getData().userPassword());
+    page().login(data.userName(), data.userPassword());
   }
 
   @Step
   public void loginAsAdmin() {
-    page().login(getData().adminName(), getData().adminPassword());
+    page().login(data.adminName(), data.adminPassword());
   }
 
   @Step
   public void verifyCurrentPageIsHomePageForTheRegularUser() {
-    verifyCurrentPageIsHomePageForTheUser(getData().userName());
+    verifyCurrentPageIsHomePageForTheUser(data.userName());
   }
 
   @Step
   public void verifyCurrentPageIsHomePageForTheAdmin() {
-    verifyCurrentPageIsHomePageForTheUser(getData().adminName());
+    verifyCurrentPageIsHomePageForTheUser(data.adminName());
   }
 
   @Step
@@ -62,8 +62,8 @@ public class LoginSteps extends BaseSteps {
     SelenideElement errorElement = $$("form p").findBy(text(expectedText));
     errorElement.shouldBe(visible);
     assertThat(errorElement.getText())
-            .as("Expected error message not shown or incorrect")
-            .contains(expectedText);
+      .as("Expected error message not shown or incorrect")
+      .contains(expectedText);
   }
 
   //TODO: Think about generics etc instead of this.

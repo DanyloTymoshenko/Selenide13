@@ -67,6 +67,6 @@ public class LoginTest extends BaseTest {
     loginSteps.loginAsAdmin();
 
     // Then Home is displayed for the ADMIN user
-     loginSteps.verifyCurrentPageIsHomePageForTheAdmin();
+    loginSteps.verifyCurrentPageIsHomePageForTheAdmin();
   }
 }
