@@ -34,9 +34,10 @@ public class AdminSteps extends BaseSteps {
     page().clickImages();
   }
 
-  String username = "qq";
-  String dynamicId = "trUser_" + username;
-  String imageId = "#trImage_19";
+  static final String username = "qq";
+  static final String dynamicId = "trUser_" + username;
+  static final String imageId = "#trImage_19";
+  static final String catId = "trCat_3";
 
   @Step
   public void hoverOverUserRole() {
@@ -150,8 +151,6 @@ public class AdminSteps extends BaseSteps {
     page().clickAddImage();
   }
 
-  String catId = "trCat_3";
-
   @Step
   public void getCategoryPage() {
     page().clickCategories();
@@ -199,7 +198,7 @@ public class AdminSteps extends BaseSteps {
 
   @Step
   public void openImage() {
-    SelenideElement imageHref = $("#trCat_3 > td:nth-child(6) > a");
+    SelenideElement imageHref = $("trCat_3 > td:nth-child(6) > a");
 
     imageHref.shouldBe(visible, Duration.ofSeconds(5)).click();
     back();

@@ -37,7 +37,7 @@ public class RegistrationSteps extends BaseSteps {
 
   @Step
   public void openRegistrationPage() {
-    getDriver().get(getData().registrationPageUrl());
+    getDriver().get(data.registrationPageUrl());
   }
 
   @Step
@@ -113,7 +113,7 @@ public class RegistrationSteps extends BaseSteps {
   @Step
   public void verifyCurrentPageIsRegistration() {
     assertCurrentPageUrl(
-      getData().registrationPageUrl(),
+      data.registrationPageUrl(),
       "Registration page was expected to be the current one."
     );
   }
