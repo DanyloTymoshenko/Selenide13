@@ -98,7 +98,7 @@ public final class DriverManager {
     // https://github.com/bonigarcia/webdrivermanager/
     final FirefoxOptions ops = new FirefoxOptions();
     //TODO: Configure as needed.
-    ops.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.DISMISS);
+    ops.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.ACCEPT);
     io.github.bonigarcia.wdm.WebDriverManager.getInstance(WebDriverType.FIREFOX.name()).setup();
 
     return new FirefoxDriver(ops);

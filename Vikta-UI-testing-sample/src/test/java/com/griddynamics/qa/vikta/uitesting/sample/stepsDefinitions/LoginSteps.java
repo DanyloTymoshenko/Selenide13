@@ -1,11 +1,12 @@
 package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 
-import static com.codeborne.selenide.Condition.exist;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.shouldHaveThrown;
 
+import com.codeborne.selenide.SelenideElement;
 import com.griddynamics.qa.vikta.uitesting.sample.auxiliary.DriverManager;
 import com.griddynamics.qa.vikta.uitesting.sample.config.DataProvider;
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.LoginPage;
@@ -57,13 +58,12 @@ public class LoginSteps extends BaseSteps {
   }
 
   @Step
-  public void verifyErrorMessage(String text) {
-    //getWait().until(ExpectedConditions.visibilityOf(page().getErrorWebElement()));
-    $(page().getErrorWebElement()).should(exist).shouldBe(visible);
-    // Have a look at https://assertj.github.io/doc/
-    assertThat(page().getErrorMessage().trim())
-      .as("Error message was nor shown or had unexpected content.")
-      .contains(text);
+  public void verifyErrorMessage(String expectedText) {
+    SelenideElement errorElement = $$("form p").findBy(text(expectedText));
+    errorElement.shouldBe(visible);
+    assertThat(errorElement.getText())
+            .as("Expected error message not shown or incorrect")
+            .contains(expectedText);
   }
 
   //TODO: Think about generics etc instead of this.

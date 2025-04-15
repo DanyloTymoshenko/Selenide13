@@ -25,32 +25,32 @@ public class HomePageSteps extends BaseSteps {
 
   @Step
   public void typeInSearchImage() {
-    page().InputSearchImages("Io N1 / error");
+    page().inputSearchImages("Io N1 / error");
   }
 
   @Step
   public void typeInRatingFrom() {
-    page().InputRatingFrom("1");
+    page().inputRatingFrom("1");
   }
 
   @Step
   public void typeInRatingTo() {
-    page().InputRatingTo("5");
+    page().inputRatingTo("5");
   }
 
   @Step
   public void typeInPriceFrom() {
-    page().InputPriceFrom("1");
+    page().inputPriceFrom("1");
   }
 
   @Step
   public void typeInPriceTo() {
-    page().InputPriceTo("100");
+    page().inputPriceTo("100");
   }
 
   @Step
   public void PressSearch() {
-    page().PressSearch();
+    page().pressSearch();
   }
 
   @Step

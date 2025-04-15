@@ -30,17 +30,25 @@ public class HomePage extends BasePage {
     @FindBy(id = "tSelectedCategoryTitle")
     private WebElement tSelectedCategoryTitle;
 
-    @FindBy(xpath = "//*[@id=\"tbRatingFrom\"]")
-    private WebElement tbRatingFrom;
+    private SelenideElement tbRatingFrom() {
+        return $("#tbRatingFrom");
+    }
 
-    @FindBy(xpath = "//*[@id=\"tbRatingTo\"]")
-    private WebElement tbRatingTo;
 
-    @FindBy(xpath = "//*[@id=\"tbPriceFrom\"]")
-    private WebElement tbPriceFrom;
+    private SelenideElement tbRatingTo() {
+        return $("#tbRatingTo");
+    }
 
-    @FindBy(xpath = "//*[@id=\"tbPriceTo\"]")
-    private WebElement tbPriceTo;
+
+    private SelenideElement tbPriceFrom() {
+        return $("#tbPriceFrom");
+    }
+
+
+    private SelenideElement tbPriceTo() {
+        return $("#tbPriceTo");
+    }
+
 
     @FindBy(id = "btnSearch")
     private WebElement btnSearch;
@@ -92,52 +100,60 @@ public class HomePage extends BasePage {
     @FindBy(id = "category13")
     private WebElement catTestTitle;
 
-    @FindBy(xpath = "//*[@id=\"tbRatingFrom\"]//div[2]/div[2]")
-    private WebElement btnRatingUp, btnRatingDown;
+    //@FindBy(xpath = "//*[@id=\"tbRatingFrom\"]//div[2]/div[2]") //div:nth-child(2) > div:nth-child(2)  // div:nth-child(2) > div:nth-child(2)
+    private SelenideElement btnRatingDown() {
+        return $("div:nth-child(2) > div:nth-child(2)");
+    }
+
+    private SelenideElement btnRatingUp() {
+        return $("div:nth-child(2) > div:nth-child(2)");
+    }
+
+    ;
 
     public void clickAdminUsers() {
         $(aUsers).click();
     }
 
-    public void InputSearchImages(String SearchImg) {
+    public void inputSearchImages(String SearchImg) {
         $(tbTerm).sendKeys(SearchImg);
     }
 
-    public void InputRatingFrom(String RatingFrom) {
-        tbRatingFrom.sendKeys(RatingFrom);
+    public void inputRatingFrom(String RatingFrom) {
+        tbRatingFrom().sendKeys(RatingFrom);
     }
 
-    public void InputRatingTo(String RatingTo) {
-        tbRatingTo.sendKeys(RatingTo);
+    public void inputRatingTo(String RatingTo) {
+        tbRatingTo().sendKeys(RatingTo);
     }
 
-    public void PageClass(WebDriver driver) {
+    public void pageClass(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    public void PressRatingButtonUp() {
+    public void pressRatingButtonUp() {
         Actions actions = new Actions(driver);
         //actions.moveToElement(tbRatingFrom, tbPriceFrom.getSize().getHeight() - 13, 13).click().perform();
 
-        actions.moveToElement(btnRatingUp).moveByOffset(7, 12).click();
+        actions.moveToElement(btnRatingUp()).moveByOffset(7, 12).click();
     }
 
-    public void PressRatingButtonDown() {
+    public void pressRatingButtonDown() {
         Actions actions = new Actions(driver);
 
-        actions.moveToElement(btnRatingDown).moveByOffset(7, 8).click();
+        actions.moveToElement(btnRatingDown()).moveByOffset(7, 8).click();
     }
 
-    public void InputPriceFrom(String PriceFrom) {
-        tbPriceFrom.sendKeys(PriceFrom);
+    public void inputPriceFrom(String PriceFrom) {
+        tbPriceFrom().sendKeys(PriceFrom);
     }
 
-    public void InputPriceTo(String PriceTo) {
-        tbPriceTo.sendKeys(PriceTo);
+    public void inputPriceTo(String PriceTo) {
+        tbPriceTo().sendKeys(PriceTo);
     }
 
-    public void PressSearch() {
+    public void pressSearch() {
         btnSearch.click();
     }
 
@@ -307,18 +323,26 @@ public class HomePage extends BasePage {
         select.selectByVisibleText(categoryName);
     }
 
-    @FindBy(css = "#aAddImage")
-    private WebElement AddImagePage;
 
-    public void clickAddImage() {
-        $(AddImagePage).click();
+    private SelenideElement addImagePage() {
+        return $("#aAddImage");
     }
 
-    @FindBy(xpath = "//*[@id=\"btnResetSearchCriteria\"]")
-    private WebElement ResetButton;
+    ;
+
+    public void clickAddImage() {
+        addImagePage().click();
+    }
+
+
+    private SelenideElement resetButton() {
+        return $("btnResetSearchCriteria");
+    }
+
+    ;
 
     public void pressReset() {
-        ResetButton.click();
+        resetButton().click();
     }
 
     /// CATEGORIES
