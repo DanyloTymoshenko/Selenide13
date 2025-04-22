@@ -7,6 +7,7 @@ build
 /*/allure-results/
 out
 .gradletasknamecache
+/screenshots/
 
 build
 hs_err_pid*
