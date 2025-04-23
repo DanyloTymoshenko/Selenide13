@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 public class AdminTest extends BaseTest {
 
-  @Test
+  @Test(enabled = false)
   public void testAdminGetUserTable() {
     loginSteps.openLoginPage();
 

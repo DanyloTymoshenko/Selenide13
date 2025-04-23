@@ -4,7 +4,7 @@
 .gradle
 schema
 build
-/*/allure-results/
+
 out
 .gradletasknamecache
 /screenshots/

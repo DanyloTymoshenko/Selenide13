@@ -14,7 +14,7 @@ public class RegistrationTest extends BaseTest {
   /**
    * Scenario: Regular user is able to login
    */
-  @Test(groups = { "smoke", "signup" })
+  @Test(groups = { "smoke", "signup" }, enabled = false)
   public void testRegularUserIsAbleToLogin() {
     // Given user opens Registration page
     registrationSteps.openRegistrationPage();

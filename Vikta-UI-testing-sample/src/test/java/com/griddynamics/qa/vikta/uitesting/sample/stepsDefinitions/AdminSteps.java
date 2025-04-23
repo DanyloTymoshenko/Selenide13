@@ -138,7 +138,7 @@ public class AdminSteps extends BaseSteps {
         "https://www.google.com/imgres?q=owl%20photo&imgurl=https%3A%2F%2Fwww.akronzoo.org%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Funcropped_xl%2Fpublic%2F2022-05%2FSnowy-owl-Frost.png%3Fitok%3Dbw8666Ly&imgrefurl=https%3A%2F%2Fwww.akronzoo.org%2Fbirds%2Fsnowy-owl&docid=HJnJFSxsErnqWM&tbnid=eAY5ZvktTqj35M&vet=12ahUKEwiw_5CizriMAxUkxAIHHQdkEocQM3oFCIUBEAA..i&w=1600&h=1600&hcb=2&ved=2ahUKEwiw_5CizriMAxUkxAIHHQdkEocQM3oFCIUBEAA"
       );
     page().changeRating(3);
-    page().setCategory("Pop");
+    page().setCategory("Full");
   }
 
   @Step

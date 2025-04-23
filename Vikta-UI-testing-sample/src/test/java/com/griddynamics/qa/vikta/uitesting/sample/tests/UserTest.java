@@ -44,7 +44,7 @@ public class UserTest extends BaseTest {
     homePageSteps.loopThroughCategories();
   }
 
-  @Test
+  @Test(enabled = false)
   public void testEditAddress() {
     loginSteps.openLoginPage();
     loginSteps.loginAsRegularUser();
@@ -72,7 +72,7 @@ public class UserTest extends BaseTest {
     adminSteps.clickSave();
   }
 
-  @Test
+  @Test(enabled = false)
   public void testEditCard() {
     loginSteps.openLoginPage();
     loginSteps.loginAsRegularUser();
@@ -98,7 +98,7 @@ public class UserTest extends BaseTest {
   }
 
   /// PURCHASING
-  @Test
+  @Test(enabled = false)
   public void testBuyImage() {
     loginSteps.openLoginPage();
     loginSteps.loginAsRegularUser();

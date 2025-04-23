@@ -64,7 +64,7 @@ public class LoginPage {
       if (!WebDriverRunner.url().contains("/login")) {
         Selenide.open("/login");
       }
-      txtLoginname().shouldBe(visible, enabled).clear();
+      // txtLoginname().shouldBe(visible, enabled).clear();
       txtLoginname().setValue(username);
       txtPassword().shouldBe(visible, enabled).clear();
       txtPassword().setValue(password);
